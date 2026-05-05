@@ -284,3 +284,240 @@ function boot(){
 }
 window.addEventListener("load",boot);
 </script>
+
+<!-- SECTIONS CSS -->
+<style>
+.sec{padding:48px 14px;max-width:800px;margin:0 auto}
+.sec-label{font-size:9px;letter-spacing:3px;color:var(--em);text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.sec-title{font-size:22px;font-weight:200;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.sec-title strong{font-weight:600}
+.sec-sub{font-size:13px;color:var(--t2);font-weight:300;line-height:1.65;margin-bottom:28px;max-width:560px}
+.divider{height:.5px;background:var(--br);margin:0 14px}
+
+/* LOGOS ENGINE — 철학 */
+.philosophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.philosophy-grid{grid-template-columns:1fr}}
+.ph-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s}
+.ph-card:hover{border-color:var(--br2)}
+.ph-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--em),transparent);opacity:0;transition:opacity .2s}
+.ph-card:hover::before{opacity:.4}
+.ph-icon{font-size:18px;margin-bottom:8px}
+.ph-name{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--em);text-transform:uppercase;margin-bottom:4px}
+.ph-desc{font-size:12px;color:var(--t2);line-height:1.6;font-weight:300}
+
+/* STRIKE FORCE 5 */
+.sf-list{display:flex;flex-direction:column;gap:10px}
+.sf-item{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:14px;transition:border-color .2s,background .2s}
+.sf-item:hover{border-color:var(--br2);background:rgba(0,255,157,.03)}
+.sf-num{font-size:11px;font-family:'SF Mono',monospace;color:var(--em);opacity:.6;min-width:24px;padding-top:2px}
+.sf-body{}
+.sf-title{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:3px}
+.sf-meta{font-size:11px;color:var(--t2);font-weight:300;line-height:1.5}
+.sf-tag{display:inline-block;font-size:9px;letter-spacing:.8px;padding:2px 6px;border-radius:4px;margin-right:5px;margin-bottom:4px;font-weight:500}
+
+/* PATENTS */
+.pat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.pat-grid{grid-template-columns:1fr}}
+.pat-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:16px 18px;transition:border-color .2s}
+.pat-card:hover{border-color:var(--br2)}
+.pat-num{font-size:9px;letter-spacing:2px;color:var(--em);opacity:.6;text-transform:uppercase;margin-bottom:6px;font-family:'SF Mono',monospace}
+.pat-name{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:6px}
+.pat-desc{font-size:11px;color:var(--t2);line-height:1.6;font-weight:300}
+.pat-status{display:inline-flex;align-items:center;gap:4px;font-size:9px;margin-top:10px;padding:3px 8px;border-radius:20px}
+.pat-filed{background:rgba(0,255,157,.08);border:.5px solid rgba(0,255,157,.25);color:var(--em)}
+.pat-pending{background:rgba(255,159,10,.08);border:.5px solid rgba(255,159,10,.25);color:#ff9f0a}
+
+/* MAENG INFRA */
+.infra-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:480px){.infra-grid{grid-template-columns:1fr}}
+.inf-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px}
+.inf-label{font-size:9px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;margin-bottom:8px}
+.inf-items{display:flex;flex-direction:column;gap:5px}
+.inf-row{display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.inf-key{color:var(--t2);font-weight:300}
+.inf-val{color:var(--em);font-family:'SF Mono',monospace;font-size:10px}
+
+/* IR CTA */
+.ir-box{background:rgba(0,255,157,.04);border:.5px solid rgba(0,255,157,.18);border-radius:16px;padding:28px 24px;text-align:center;margin-top:0}
+.ir-title{font-size:18px;font-weight:200;color:#fff;margin-bottom:8px}
+.ir-title strong{font-weight:600;color:var(--em)}
+.ir-sub{font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.6}
+.ir-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ir-btn-main{padding:10px 24px;border-radius:24px;border:.5px solid var(--em);background:rgba(0,255,157,.1);color:var(--em);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
+.ir-btn-main:hover{background:var(--em);color:#000}
+.ir-btn-sub{padding:10px 24px;border-radius:24px;border:.5px solid var(--br);background:transparent;color:var(--t2);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
+.ir-btn-sub:hover{border-color:var(--t2);color:var(--t1)}
+</style>
+
+<!-- ① LOGOS ENGINE 철학 섹션 -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-label">LOGOS ENGINE · CORE PHILOSOPHY</div>
+  <div class="sec-title"><strong>구조적 불신뢰</strong>가 신뢰를 만든다</div>
+  <div class="sec-sub">단일 모델의 성능을 높이는 대신, 어떤 AI도 혼자 결론을 내릴 수 없는 시스템을 설계했습니다. 3개의 특허 엔진이 독립적으로 판단하고 상호 검증합니다.</div>
+  <div class="philosophy-grid">
+    <div class="ph-card">
+      <div class="ph-icon">📡</div>
+      <div class="ph-name">Antenna Engine</div>
+      <div class="ph-desc">입력 데이터를 의미론적 단위로 분할하여 이종 LLM 인스턴스에 독립 배분. 동적 가중 다수결로 1차 진위 결정 및 신뢰도 임계치 미달 시 선제 차단.</div>
+    </div>
+    <div class="ph-card">
+      <div class="ph-icon">🦅</div>
+      <div class="ph-name">Boramae Engine</div>
+      <div class="ph-desc">계층적 논리 노드 기반 무결성 검증. 상위 노드 실패 시 후속 연산 즉시 차단. 누적 신뢰도 스코어 산출로 연산 자원 최적화.</div>
+    </div>
+    <div class="ph-card">
+      <div class="ph-icon">⚔️</div>
+      <div class="ph-name">Marines Engine</div>
+      <div class="ph-desc">훈련 계보·아키텍처가 상이한 3개 이종 LLM을 논리비판자·팩트체커·보안검증자로 고정 배치. 3인 전원 합의 시에만 통과.</div>
+    </div>
+    <div class="ph-card" style="border-color:rgba(0,255,157,.2);background:rgba(0,255,157,.03)">
+      <div class="ph-icon">⚙️</div>
+      <div class="ph-name" style="color:#fff">LOGOS ENGINE</div>
+      <div class="ph-desc">3대 엔진의 실행 순서·조건 분기·재처리 루프를 중앙 제어. 최종 출력에 검증 경로 메타데이터와 무결성 스코어 부착.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ② STRIKE FORCE 5 -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-label">STRIKE FORCE 5 · PLATFORM LINEUP</div>
+  <div class="sec-title">전략 <strong>5대 플랫폼</strong></div>
+  <div class="sec-sub">로고스 엔진의 3대 특허 기술을 가장 돋보이게 만들 최우선 사업 라인업. B2B·B2G 실수요 시장을 정밀 타겟합니다.</div>
+  <div class="sf-list">
+    <div class="sf-item">
+      <div class="sf-num">01</div>
+      <div class="sf-body">
+        <div class="sf-title">AI Data Integrity Autonomous Verification Center</div>
+        <div class="sf-meta">K-Moonshot·AI Hub 국책 과제의 데이터 오류·편향 검수 시장 대체. 보라매 엔진 총력 투입.</div>
+        <div><span class="sf-tag" style="background:rgba(255,69,58,.1);color:#ff453a;border:.5px solid rgba(255,69,58,.3)">B2G</span><span class="sf-tag" style="background:rgba(0,122,255,.1);color:#007AFF;border:.5px solid rgba(0,122,255,.3)">Boramae</span></div>
+      </div>
+    </div>
+    <div class="sf-item">
+      <div class="sf-num">02</div>
+      <div class="sf-body">
+        <div class="sf-title">On-Premise Specialized LLM Architecture</div>
+        <div class="sf-meta">국방·금융·의료 폐쇄망 특화 고단가 프로젝트. 96GB VRAM 내 다중 모델 완벽 상호 통제 구현.</div>
+        <div><span class="sf-tag" style="background:rgba(48,209,88,.1);color:#30D158;border:.5px solid rgba(48,209,88,.3)">B2B</span><span class="sf-tag" style="background:rgba(0,122,255,.1);color:#007AFF;border:.5px solid rgba(0,122,255,.3)">Marines</span></div>
+      </div>
+    </div>
+    <div class="sf-item">
+      <div class="sf-num">03</div>
+      <div class="sf-body">
+        <div class="sf-title">Global AI Regulatory Compliance Diagnostic</div>
+        <div class="sf-meta">EU AI Act·글로벌 저작권 규제 자동 스캐닝 및 리포팅. 안테나 엔진 총력 투입.</div>
+        <div><span class="sf-tag" style="background:rgba(0,122,255,.1);color:#007AFF;border:.5px solid rgba(0,122,255,.3)">B2B</span><span class="sf-tag" style="background:rgba(255,159,10,.1);color:#FF9F0A;border:.5px solid rgba(255,159,10,.3)">Antenna</span></div>
+      </div>
+    </div>
+    <div class="sf-item">
+      <div class="sf-num">04</div>
+      <div class="sf-body">
+        <div class="sf-title">Real-time Deepfake & Disinformation Radar</div>
+        <div class="sf-meta">언론사·선관위 SaaS 납품. 2,000 에이전트 차출로 특정 채널 집중 감시·필터링.</div>
+        <div><span class="sf-tag" style="background:rgba(255,69,58,.1);color:#ff453a;border:.5px solid rgba(255,69,58,.3)">B2G</span><span class="sf-tag" style="background:rgba(255,159,10,.1);color:#FF9F0A;border:.5px solid rgba(255,159,10,.3)">Antenna+Boramae</span></div>
+      </div>
+    </div>
+    <div class="sf-item">
+      <div class="sf-num">05</div>
+      <div class="sf-body">
+        <div class="sf-title">R&D Patent & Tech Trend Autonomous Reasoner</div>
+        <div class="sf-meta">전 세계 논문·특허 자율 분석 및 경쟁사 기술 트렌드 예측. 하이엔드 구독 모델.</div>
+        <div><span class="sf-tag" style="background:rgba(0,122,255,.1);color:#007AFF;border:.5px solid rgba(0,122,255,.3)">B2B</span><span class="sf-tag" style="background:rgba(0,122,255,.1);color:#007AFF;border:.5px solid rgba(0,122,255,.3)">Marines+Boramae</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ 특허 섹션 -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-label">INTELLECTUAL PROPERTY · PATENT PORTFOLIO</div>
+  <div class="sec-title"><strong>4건</strong>의 원천 특허</div>
+  <div class="sec-sub">단일 판단자를 신뢰하지 않는다는 하나의 철학에서 출발한 특허 포트폴리오. 부품 3건과 통합 시스템 1건으로 완전한 기술 해자를 구축합니다.</div>
+  <div class="pat-grid">
+    <div class="pat-card">
+      <div class="pat-num">Patent · 01</div>
+      <div class="pat-name">안테나 엔진</div>
+      <div class="pat-desc">적응형 데이터 소스 검증 및 가변 필터링. 이종 LLM 분산 배분 및 동적 가중 다수결 진위 결정 방법.</div>
+      <div class="pat-status pat-filed">● 출원 완료</div>
+    </div>
+    <div class="pat-card">
+      <div class="pat-num">Patent · 02</div>
+      <div class="pat-name">보라매 엔진</div>
+      <div class="pat-desc">계층적 다중 분석 노드 기반 무결성 검증. 선행 노드 실패 시 후속 연산 차단 및 누적 신뢰도 스코어 산출.</div>
+      <div class="pat-status pat-filed">● 출원 완료</div>
+    </div>
+    <div class="pat-card">
+      <div class="pat-num">Patent · 03</div>
+      <div class="pat-name">마린즈 엔진</div>
+      <div class="pat-desc">다중 독립 LLM 상호 검증. 삼심제 기반 합의 및 자가 교정 피드백 루프를 통한 환각 차단 방법.</div>
+      <div class="pat-status pat-filed">● 출원 완료</div>
+    </div>
+    <div class="pat-card" style="border-color:rgba(0,255,157,.2)">
+      <div class="pat-num">Patent · 04</div>
+      <div class="pat-name">LOGOS ENGINE</div>
+      <div class="pat-desc">이종 다중 LLM 분산 재판 구조 기반 인공지능 데이터 무결성 통합 검증 시스템. 3대 엔진 통합 오케스트레이션.</div>
+      <div class="pat-status pat-pending">◐ 출원 준비중</div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ MAENG INFRA -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-label">MAENG · LOCAL INFERENCE INFRASTRUCTURE</div>
+  <div class="sec-title"><strong>완전 폐쇄망</strong> 추론 인프라</div>
+  <div class="sec-sub">외부 클라우드 의존 없이 온프레미스에서 다중 LLM을 동시 구동. 데이터는 물리적으로 외부와 차단된 환경에서만 처리됩니다.</div>
+  <div class="infra-grid">
+    <div class="inf-card">
+      <div class="inf-label">Compute</div>
+      <div class="inf-items">
+        <div class="inf-row"><span class="inf-key">Platform</span><span class="inf-val">DELL Precision 7960</span></div>
+        <div class="inf-row"><span class="inf-key">CPU</span><span class="inf-val">Xeon W5-3425 12C</span></div>
+        <div class="inf-row"><span class="inf-key">RAM</span><span class="inf-val">256GB ECC/REG</span></div>
+        <div class="inf-row"><span class="inf-key">Storage</span><span class="inf-val">2TB NVMe + 8TB HDD</span></div>
+      </div>
+    </div>
+    <div class="inf-card">
+      <div class="inf-label">GPU · VRAM</div>
+      <div class="inf-items">
+        <div class="inf-row"><span class="inf-key">GPU</span><span class="inf-val">RTX PRO 6000 ×2</span></div>
+        <div class="inf-row"><span class="inf-key">VRAM</span><span class="inf-val">96GB Total</span></div>
+        <div class="inf-row"><span class="inf-key">Network</span><span class="inf-val">10GbE</span></div>
+        <div class="inf-row"><span class="inf-key">Mode</span><span class="inf-val">Air-Gap / Local First</span></div>
+      </div>
+    </div>
+    <div class="inf-card">
+      <div class="inf-label">Software Stack</div>
+      <div class="inf-items">
+        <div class="inf-row"><span class="inf-key">OS</span><span class="inf-val">Ubuntu 22.04 LTS</span></div>
+        <div class="inf-row"><span class="inf-key">Inference</span><span class="inf-val">vLLM + Docker</span></div>
+        <div class="inf-row"><span class="inf-key">Vector DB</span><span class="inf-val">ChromaDB (US)</span></div>
+        <div class="inf-row"><span class="inf-key">API</span><span class="inf-val">FastAPI Middleware</span></div>
+      </div>
+    </div>
+    <div class="inf-card">
+      <div class="inf-label">LLM Lineup · Non-Chinese</div>
+      <div class="inf-items">
+        <div class="inf-row"><span class="inf-key">Antenna</span><span class="inf-val">EXAONE 3.0 🇰🇷</span></div>
+        <div class="inf-row"><span class="inf-key">Boramae</span><span class="inf-val">Llama-3-8B 🇺🇸</span></div>
+        <div class="inf-row"><span class="inf-key">Marines</span><span class="inf-val">Mistral 7B 🇫🇷</span></div>
+        <div class="inf-row"><span class="inf-key">Alliance</span><span class="inf-val">KR · US · EU Only</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ IR CTA -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="ir-box">
+    <div class="ir-title">글로벌 AI 3사가 검증한<br><strong>유일한 구조</strong>입니다</div>
+    <div class="ir-sub">ChatGPT · Gemini Pro · Claude — 훈련 계보와 아키텍처가 상이한 3개의 이종 AI가<br>동일한 결론을 도출했습니다. 이것이 마린즈 엔진의 실증입니다.</div>
+    <div class="ir-btns">
+      <a class="ir-btn-main" href="mailto:ceo@aigstack.kr">Request IR Briefing ↗</a>
+      <a class="ir-btn-sub" href="mailto:ceo@aigstack.kr">기술 협력 문의</a>
+    </div>
+  </div>
+</div>
