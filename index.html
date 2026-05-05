@@ -1,397 +1,387 @@
 
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --em:#00ff9d;--em2:rgba(0,255,157,0.15);--em3:rgba(0,255,157,0.06);
-  --bg:#050810;--bg2:#0a0f1e;--bg3:#0d1528;
-  --t1:rgba(255,255,255,0.92);--t2:rgba(255,255,255,0.55);--t3:rgba(255,255,255,0.25);
-  --br:rgba(255,255,255,0.08);--br2:rgba(0,255,157,0.22);
-}
-body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;color:var(--t1);overflow-x:hidden;min-height:100vh}
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(5,8,16,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--br)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
-.logo{font-size:15px;font-weight:600;letter-spacing:2px;color:var(--em);font-family:'SF Pro Display',sans-serif}
-.logo span{color:var(--t2);font-weight:300;font-size:12px;margin-left:6px;letter-spacing:1px}
-.nav-menu{display:flex;align-items:center;gap:2px;position:relative}
+:root{--em:#00ff9d;--bg:#050810;--bg2:#0a0f1e;--br:rgba(255,255,255,.08);--br2:rgba(0,255,157,.2);--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.52);--t3:rgba(255,255,255,.22)}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;color:var(--t1);overflow-x:hidden}
+h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* ── NAV ── */
+nav{background:rgba(5,8,16,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:.5px solid var(--br);position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:48px;gap:6px}
+.logo{display:flex;flex-direction:column;justify-content:center;flex-shrink:0;line-height:1}
+.logo-main{font-size:15px;font-weight:700;letter-spacing:2px;color:var(--em)}
+.logo-sub{font-size:9px;font-weight:300;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;margin-top:1px}
+.nav-menu{display:flex;align-items:center;gap:1px}
 .nav-item{position:relative}
-.nav-btn{background:none;border:none;color:var(--t2);font-size:12px;font-weight:400;padding:8px 12px;cursor:pointer;border-radius:6px;transition:color .2s,background .2s;font-family:inherit;letter-spacing:.5px;display:flex;align-items:center;gap:4px;white-space:nowrap}
-.nav-btn:hover{color:var(--t1);background:rgba(255,255,255,0.05)}
-.nav-btn.active{color:var(--em)}
-.nav-btn .cat-badge{font-size:10px;font-weight:600;color:var(--em);background:var(--em3);border:0.5px solid var(--br2);padding:1px 5px;border-radius:4px}
-.nav-about{color:var(--t2);font-size:12px;padding:7px 14px;border:0.5px solid var(--br);border-radius:20px;cursor:pointer;background:none;font-family:inherit;transition:all .2s;text-decoration:none;display:flex;align-items:center}
-.nav-about:hover{border-color:var(--em);color:var(--em)}
+.nav-btn{background:none;border:none;color:var(--t2);font-size:12px;font-weight:400;padding:7px 9px;cursor:pointer;border-radius:6px;transition:color .2s,background .2s;font-family:inherit;letter-spacing:.3px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.nav-btn:hover{color:var(--t1);background:rgba(255,255,255,.05)}
+.cpill{font-size:10px;font-weight:600;padding:2px 5px;border-radius:4px;letter-spacing:.3px}
+.nav-contact{color:var(--t2);font-size:12px;padding:6px 13px;border:.5px solid rgba(255,255,255,.18);border-radius:20px;cursor:pointer;background:none;font-family:inherit;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;flex-shrink:0;line-height:1}
+.nav-contact:hover{border-color:var(--em);color:var(--em)}
+
 /* DROPDOWN */
-.dropdown{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(-4px);min-width:260px;background:rgba(10,15,30,0.96);border:0.5px solid var(--br2);border-radius:12px;padding:12px;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;backdrop-filter:blur(24px);z-index:200}
-.nav-item:hover .dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-.dd-header{font-size:9px;letter-spacing:2px;color:var(--em);text-transform:uppercase;font-weight:500;padding:4px 8px 8px;border-bottom:0.5px solid var(--br);margin-bottom:8px}
-.dd-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:7px;cursor:pointer;transition:background .15s}
-.dd-item:hover{background:rgba(0,255,157,0.07)}
-.dd-num{font-size:10px;color:var(--em);font-weight:500;min-width:20px;font-family:'SF Mono',monospace}
-.dd-label{font-size:12px;color:var(--t2);font-weight:300}
-.dd-item:hover .dd-label{color:var(--t1)}
-/* HERO */
-.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px 20px;min-height:calc(100vh - 52px);position:relative;overflow:hidden}
-.hero-eyebrow{font-size:10px;letter-spacing:3px;color:var(--em);text-transform:uppercase;font-weight:400;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:0.5px;background:var(--em);opacity:.5}
-.hero-title{font-size:clamp(28px,4vw,48px);font-weight:200;color:var(--t1);letter-spacing:-1px;text-align:center;line-height:1.15;margin-bottom:8px;max-width:700px}
-.hero-title strong{font-weight:500;color:#fff}
-.hero-sub{font-size:13px;color:var(--t2);font-weight:300;text-align:center;max-width:480px;line-height:1.7;margin-bottom:36px}
-/* PROCESS VISUALIZER */
-.viz-wrap{width:100%;max-width:780px;background:rgba(10,15,30,0.7);border:0.5px solid var(--br);border-radius:16px;padding:20px;position:relative;overflow:hidden}
-.viz-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.viz-title{font-size:10px;letter-spacing:2px;color:var(--t3);text-transform:uppercase}
-.viz-stages{display:flex;align-items:center;gap:6px}
-.stage-tag{font-size:10px;padding:3px 8px;border-radius:4px;font-weight:400;letter-spacing:.5px;cursor:pointer;transition:all .2s;border:0.5px solid transparent}
-.stage-tag.s-ant{color:#64b5f6;border-color:rgba(100,181,246,.3);background:rgba(100,181,246,.08)}
-.stage-tag.s-bor{color:#ff9f0a;border-color:rgba(255,159,10,.3);background:rgba(255,159,10,.08)}
-.stage-tag.s-mar{color:var(--em);border-color:var(--br2);background:var(--em3)}
-.stage-tag.active{transform:scale(1.05)}
-.canvas-wrap{position:relative;width:100%;height:220px}
-canvas#viz{position:absolute;top:0;left:0;width:100%;height:100%}
-.viz-stat{position:absolute;right:12px;top:50%;transform:translateY(-50%);text-align:right}
-.stat-val{font-size:28px;font-weight:200;color:var(--em);font-family:'SF Mono',monospace;line-height:1}
-.stat-label{font-size:10px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
-.viz-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:8px}
-.stage-desc{font-size:11px;color:var(--t2);font-weight:300;line-height:1.5;max-width:420px}
-.stage-desc strong{color:var(--t1);font-weight:500}
-.verified-badge{display:flex;align-items:center;gap:6px;opacity:0;transition:opacity .5s}
-.verified-badge.show{opacity:1}
-.vb-dot{width:8px;height:8px;border-radius:50%;background:var(--em);box-shadow:0 0 8px rgba(0,255,157,.6)}
-.vb-text{font-size:11px;color:var(--em);letter-spacing:.5px}
-/* PROCESS STEPS */
-.process-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:780px;margin-top:14px}
-.proc-card{background:var(--bg3);border:0.5px solid var(--br);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;cursor:pointer;transition:border-color .2s}
-.proc-card:hover{border-color:rgba(255,255,255,0.15)}
-.proc-card.active-card{border-color:var(--br2)}
-.proc-num{font-size:10px;font-family:'SF Mono',monospace;color:var(--t3);letter-spacing:1px;margin-bottom:6px}
-.proc-name{font-size:13px;font-weight:500;margin-bottom:3px}
-.proc-sub{font-size:11px;color:var(--t2);font-weight:300;line-height:1.4}
-.proc-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--em),rgba(0,255,157,.3));transition:width .6s ease}
-.proc-pct{position:absolute;top:14px;right:14px;font-size:12px;font-family:'SF Mono',monospace;color:var(--t3)}
-/* SHIELD */
-canvas#shield{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.4}
-/* FOOTER */
-.hero-footer{margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
-.hf-tag{font-size:10px;color:var(--t3);letter-spacing:.5px;display:flex;align-items:center;gap:5px}
-.hf-dot{width:5px;height:5px;border-radius:50%;background:var(--em);opacity:.6}
-.cta-btn{padding:10px 22px;border-radius:24px;border:0.5px solid var(--em);background:rgba(0,255,157,.08);color:var(--em);font-size:12px;font-weight:400;cursor:pointer;transition:all .22s;font-family:inherit;letter-spacing:.3px;text-decoration:none}
-.cta-btn:hover{background:var(--em);color:#000}
-@media(max-width:600px){
-  .nav-inner{padding:0 16px}
-  .nav-btn .cat-badge{display:none}
-  .process-row{grid-template-columns:1fr;gap:8px}
-  .hero{padding:28px 14px 20px;min-height:auto}
-  .dropdown{min-width:220px}
+.dd{position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%) translateY(-4px);min-width:252px;background:rgba(8,12,24,.97);border:.5px solid var(--br2);border-radius:12px;padding:10px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;backdrop-filter:blur(24px);z-index:200}
+.nav-item:hover .dd{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.dd-h{font-size:9px;letter-spacing:2px;color:var(--em);text-transform:uppercase;font-weight:500;padding:2px 6px 7px;border-bottom:.5px solid var(--br);margin-bottom:7px}
+.dd-i{display:flex;align-items:center;gap:7px;padding:5px 6px;border-radius:7px;cursor:pointer;transition:background .15s}
+.dd-i:hover{background:rgba(0,255,157,.07)}
+.dd-n{font-size:10px;font-weight:500;min-width:18px;font-family:'SF Mono',monospace}
+.dd-l{font-size:12px;color:var(--t2);font-weight:300}
+.dd-i:hover .dd-l{color:var(--t1)}
+
+/* ── HERO ── */
+.hero{padding:28px 16px 24px;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.eyebrow{font-size:10px;letter-spacing:3px;color:var(--em);text-transform:uppercase;margin-bottom:11px;display:flex;align-items:center;gap:8px;opacity:.82}
+.eyebrow::before,.eyebrow::after{content:'';width:18px;height:.5px;background:var(--em);opacity:.5}
+.htitle{font-size:clamp(20px,3vw,38px);font-weight:200;color:#fff;letter-spacing:-.5px;text-align:center;line-height:1.15;margin-bottom:7px}
+.htitle strong{font-weight:500}
+.hsub{font-size:12px;color:var(--t2);text-align:center;max-width:440px;line-height:1.7;margin-bottom:24px}
+
+/* ── 3-COL VIZ ── */
+.viz-wrap{width:100%;max-width:800px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:.5px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
+.col{position:relative;overflow:hidden}
+.col:not(:last-child){border-right:.5px solid rgba(255,255,255,.08)}
+canvas.vc{display:block;width:100%}
+.zone-top{position:absolute;top:0;left:0;right:0;padding:9px 8px 0;text-align:center;pointer-events:none}
+.zt-n{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;opacity:.85}
+.zone-bot{position:absolute;bottom:0;left:0;right:0;padding:8px 8px 10px;background:linear-gradient(transparent,rgba(5,8,16,.9));text-align:center;pointer-events:none}
+.zb-pct{font-size:15px;font-weight:200;font-family:'SF Mono',monospace;line-height:1;margin-bottom:2px}
+.zb-txt{font-size:9px;font-weight:300;line-height:1.4;opacity:.58}
+
+/* stats */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:9px}
+.st{background:rgba(10,15,30,.75);border:.5px solid rgba(255,255,255,.07);border-radius:10px;padding:9px 10px;text-align:center}
+.sv{font-size:17px;font-weight:200;font-family:'SF Mono',monospace}
+.sl{font-size:10px;color:var(--t3);margin-top:2px;font-weight:300}
+
+/* footer */
+.hfooter{margin-top:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.ft{font-size:10px;color:var(--t3);display:flex;align-items:center;gap:4px;letter-spacing:.3px}
+.ftd{width:4px;height:4px;border-radius:50%;background:var(--em);opacity:.55}
+.cta{padding:8px 18px;border-radius:24px;border:.5px solid var(--em);background:rgba(0,255,157,.06);color:var(--em);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
+.cta:hover{background:var(--em);color:#000}
+
+/* shield bg */
+canvas#shield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.3;z-index:0}
+.hero,.viz-wrap,.stats,.hfooter{position:relative;z-index:1}
+
+@media(max-width:580px){
+  .nav-inner{padding:0 12px}
+  .nav-btn{padding:6px 6px;font-size:11px}
+  .cpill{display:none}
+  .htitle{font-size:20px}
+  .hsub{font-size:11px}
+  .dd{min-width:210px}
 }
 </style>
 
-<h2 class="sr-only">AIGSTACK — AI 무결성 인프라 플랫폼 메인 랜딩 페이지. LOGOS ENGINE의 데이터 검증 프로세스(ANTENNA → BORAMAE → MARINES)를 동적으로 시각화합니다.</h2>
+<h2 class="sr-only">AIGSTACK — GNB 6열 메뉴와 LOGOS ENGINE 3구역 무한 파티클 애니메이션 통합 페이지</h2>
 
-<!-- SHIELD CANVAS (background) -->
 <canvas id="shield"></canvas>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav>
   <div class="nav-inner">
-    <div class="logo">AIGSTACK <span>INTEGRITY INFRASTRUCTURE</span></div>
+    <div class="logo">
+      <div class="logo-main">AIGSTACK</div>
+      <div class="logo-sub">INTEGRITY INFRASTRUCTURE</div>
+    </div>
     <div class="nav-menu">
       <!-- X -->
       <div class="nav-item">
-        <button class="nav-btn active"><span class="cat-badge">X</span> XAI</button>
-        <div class="dropdown">
-          <div class="dd-header">X · XAI 우선 선별과제</div>
-          <div class="dd-item"><span class="dd-num">01</span><span class="dd-label">AI Data Integrity Verification Center</span></div>
-          <div class="dd-item"><span class="dd-num">02</span><span class="dd-label">On-Premise LLM Architecture</span></div>
-          <div class="dd-item"><span class="dd-num">03</span><span class="dd-label">Global AI Regulatory Diagnosis</span></div>
-          <div class="dd-item"><span class="dd-num">04</span><span class="dd-label">Deepfake & Disinformation Radar</span></div>
-          <div class="dd-item"><span class="dd-num">05</span><span class="dd-label">R&D Patent Autonomous Reasoning</span></div>
+        <button class="nav-btn"><span class="cpill" style="background:rgba(255,69,58,.12);color:#ff453a;border:.5px solid rgba(255,69,58,.35)">X</span>XAI</button>
+        <div class="dd">
+          <div class="dd-h">X · XAI 우선 선별과제</div>
+          <div class="dd-i"><span class="dd-n" style="color:#ff453a">01</span><span class="dd-l">AI Data Integrity Verification Center</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#ff453a">02</span><span class="dd-l">On-Premise LLM Architecture</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#ff453a">03</span><span class="dd-l">Global AI Regulatory Diagnosis</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#ff453a">04</span><span class="dd-l">Deepfake & Disinformation Radar</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#ff453a">05</span><span class="dd-l">R&D Patent Autonomous Reasoning</span></div>
         </div>
       </div>
       <!-- A -->
       <div class="nav-item">
-        <button class="nav-btn"><span class="cat-badge" style="color:#007AFF;background:rgba(0,122,255,0.1);border-color:rgba(0,122,255,0.3)">A</span> Infra</button>
-        <div class="dropdown">
-          <div class="dd-header">A · AI Infrastructure</div>
-          <div class="dd-item"><span class="dd-num" style="color:#007AFF">06</span><span class="dd-label">Semiconductor Infra Optimization</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#007AFF">07</span><span class="dd-label">On-Premise / Edge AI Environment</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#007AFF">08</span><span class="dd-label">Hierarchical Compute Allocation</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#007AFF">09</span><span class="dd-label">Classified Data Air-Gap Network</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#007AFF">10</span><span class="dd-label">AI/SaaS Local-First Migration</span></div>
+        <button class="nav-btn"><span class="cpill" style="background:rgba(0,122,255,.12);color:#007AFF;border:.5px solid rgba(0,122,255,.35)">A</span>Infra</button>
+        <div class="dd">
+          <div class="dd-h">A · AI Infrastructure</div>
+          <div class="dd-i"><span class="dd-n" style="color:#007AFF">06</span><span class="dd-l">Semiconductor Infra Optimization</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#007AFF">07</span><span class="dd-l">On-Premise / Edge AI Environment</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#007AFF">08</span><span class="dd-l">Hierarchical Compute Allocation</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#007AFF">09</span><span class="dd-l">Classified Data Air-Gap Network</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#007AFF">10</span><span class="dd-l">AI/SaaS Local-First Migration</span></div>
         </div>
       </div>
       <!-- B -->
       <div class="nav-item">
-        <button class="nav-btn"><span class="cat-badge" style="color:#30D158;background:rgba(48,209,88,0.1);border-color:rgba(48,209,88,0.3)">B</span> Integrity</button>
-        <div class="dropdown">
-          <div class="dd-header">B · Integrity Verification</div>
-          <div class="dd-item"><span class="dd-num" style="color:#30D158">11</span><span class="dd-label">Healthcare Data Integrity Dam</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#30D158">12</span><span class="dd-label">Multi-LLM Cross-Critique Simulator</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#30D158">13</span><span class="dd-label">Data Source Cross-Validation Tracker</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#30D158">14</span><span class="dd-label">AI Voucher Feasibility Verification</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#30D158">15</span><span class="dd-label">Physical Resource Integrity Monitor</span></div>
+        <button class="nav-btn"><span class="cpill" style="background:rgba(48,209,88,.1);color:#30D158;border:.5px solid rgba(48,209,88,.32)">B</span>Integrity</button>
+        <div class="dd">
+          <div class="dd-h">B · Integrity Verification</div>
+          <div class="dd-i"><span class="dd-n" style="color:#30D158">11</span><span class="dd-l">Healthcare Data Integrity Dam</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#30D158">12</span><span class="dd-l">Multi-LLM Cross-Critique Simulator</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#30D158">13</span><span class="dd-l">Data Source Cross-Validation Tracker</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#30D158">14</span><span class="dd-l">AI Voucher Feasibility Verification</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#30D158">15</span><span class="dd-l">Physical Resource Integrity Monitor</span></div>
         </div>
       </div>
       <!-- C -->
       <div class="nav-item">
-        <button class="nav-btn"><span class="cat-badge" style="color:#FF9F0A;background:rgba(255,159,10,0.1);border-color:rgba(255,159,10,0.3)">C</span> Regulation</button>
-        <div class="dropdown">
-          <div class="dd-header">C · Global Compliance</div>
-          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">16</span><span class="dd-label">Data Sovereignty Protection Shield</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">17</span><span class="dd-label">EU AI Act Compliance Engine</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">18</span><span class="dd-label">Adversarial Prompt Injection Block</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">19</span><span class="dd-label">National Security Standard Simulator</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">20</span><span class="dd-label">Data Anonymization Pipeline</span></div>
+        <button class="nav-btn"><span class="cpill" style="background:rgba(255,159,10,.1);color:#FF9F0A;border:.5px solid rgba(255,159,10,.32)">C</span>Regulation</button>
+        <div class="dd">
+          <div class="dd-h">C · Global Compliance</div>
+          <div class="dd-i"><span class="dd-n" style="color:#FF9F0A">16</span><span class="dd-l">Data Sovereignty Protection Shield</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#FF9F0A">17</span><span class="dd-l">EU AI Act Compliance Engine</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#FF9F0A">18</span><span class="dd-l">Adversarial Prompt Injection Block</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#FF9F0A">19</span><span class="dd-l">National Security Standard Simulator</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#FF9F0A">20</span><span class="dd-l">Data Anonymization Pipeline</span></div>
         </div>
       </div>
       <!-- D -->
       <div class="nav-item">
-        <button class="nav-btn"><span class="cat-badge" style="color:#BF5AF2;background:rgba(191,90,242,0.1);border-color:rgba(191,90,242,0.3)">D</span> Business</button>
-        <div class="dropdown">
-          <div class="dd-header">D · Intelligent Business</div>
-          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">21</span><span class="dd-label">KIBO Evaluation Reverse Engine</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">22</span><span class="dd-label">Deep-Tech R&D Targeting Engine</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">23</span><span class="dd-label">B2B AI Adoption ROI Validator</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">24</span><span class="dd-label">Smart Factory Integrity Monitor</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">25</span><span class="dd-label">Autonomous Partner Matching Engine</span></div>
+        <button class="nav-btn"><span class="cpill" style="background:rgba(191,90,242,.1);color:#BF5AF2;border:.5px solid rgba(191,90,242,.32)">D</span>Business</button>
+        <div class="dd">
+          <div class="dd-h">D · Intelligent Business</div>
+          <div class="dd-i"><span class="dd-n" style="color:#BF5AF2">21</span><span class="dd-l">KIBO Evaluation Reverse Engine</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#BF5AF2">22</span><span class="dd-l">Deep-Tech R&D Targeting Engine</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#BF5AF2">23</span><span class="dd-l">B2B AI Adoption ROI Validator</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#BF5AF2">24</span><span class="dd-l">Smart Factory Integrity Monitor</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#BF5AF2">25</span><span class="dd-l">Autonomous Partner Matching Engine</span></div>
         </div>
       </div>
       <!-- E -->
       <div class="nav-item">
-        <button class="nav-btn"><span class="cat-badge" style="color:#64D2FF;background:rgba(100,210,255,0.1);border-color:rgba(100,210,255,0.3)">E</span> Dev</button>
-        <div class="dropdown">
-          <div class="dd-header">E · System Developer Standards</div>
-          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">26</span><span class="dd-label">Local Dev Standard Environment</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">27</span><span class="dd-label">CI/CD Pipeline Integrity Guard</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">28</span><span class="dd-label">Open Source Vulnerability Filter</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">29</span><span class="dd-label">API Spec Automated Testing</span></div>
-          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">30</span><span class="dd-label">Container Security Standardization</span></div>
+        <button class="nav-btn"><span class="cpill" style="background:rgba(100,210,255,.1);color:#64D2FF;border:.5px solid rgba(100,210,255,.32)">E</span>Dev</button>
+        <div class="dd">
+          <div class="dd-h">E · System Developer Standards</div>
+          <div class="dd-i"><span class="dd-n" style="color:#64D2FF">26</span><span class="dd-l">Local Dev Standard Environment</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#64D2FF">27</span><span class="dd-l">CI/CD Pipeline Integrity Guard</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#64D2FF">28</span><span class="dd-l">Open Source Vulnerability Filter</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#64D2FF">29</span><span class="dd-l">API Spec Automated Testing</span></div>
+          <div class="dd-i"><span class="dd-n" style="color:#64D2FF">30</span><span class="dd-l">Container Security Standardization</span></div>
         </div>
       </div>
-      <a class="nav-about" href="mailto:ceo@aigstack.kr">Contact ↗</a>
+      <a class="nav-contact" href="mailto:ceo@aigstack.kr">Contact ↗</a>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <div class="hero">
-  <div class="hero-eyebrow">LOGOS ENGINE · v1.0</div>
-  <h1 class="hero-title"><strong>AI Integrity</strong><br>Infrastructure Platform</h1>
-  <p class="hero-sub">Global Tier-1 Clusters. Decentralized Integrity Nodes.<br>Every data point verified before it becomes truth.</p>
+  <div class="eyebrow">LOGOS ENGINE · v1.0</div>
+  <h1 class="htitle"><strong>AI Integrity</strong><br>Infrastructure Platform</h1>
+  <p class="hsub">Global Tier-1 Clusters · Decentralized Integrity Nodes<br>Every data point verified before it becomes truth.</p>
 
-  <!-- VISUALIZER -->
+  <!-- 3-COL VIZ -->
   <div class="viz-wrap">
-    <div class="viz-top">
-      <span class="viz-title">LOGOS ENGINE · LIVE VERIFICATION STREAM</span>
-      <div class="viz-stages">
-        <span class="stage-tag s-ant" id="tag-ant" onclick="setStage(0)">ANTENNA</span>
-        <span style="color:rgba(255,255,255,.2);font-size:10px">›</span>
-        <span class="stage-tag s-bor" id="tag-bor" onclick="setStage(1)">BORAMAE</span>
-        <span style="color:rgba(255,255,255,.2);font-size:10px">›</span>
-        <span class="stage-tag s-mar active" id="tag-mar" onclick="setStage(2)">MARINES</span>
+    <div class="grid3">
+      <!-- COL 0 : 100% -->
+      <div class="col" style="background:rgba(10,12,22,0.92)" id="col0">
+        <div class="zone-top"><span class="zt-n" style="color:#ef5350">INTAKE</span></div>
+        <canvas class="vc" id="c0"></canvas>
+        <div class="zone-bot">
+          <div class="zb-pct" style="color:#ef5350">100%</div>
+          <div class="zb-txt">API 원시 데이터 유입<br>Raw Signal Intake</div>
+        </div>
+      </div>
+      <!-- COL 1 : 50% -->
+      <div class="col" style="background:rgba(8,10,20,0.96)" id="col1">
+        <div class="zone-top"><span class="zt-n" style="color:#ff9f0a">FILTER</span></div>
+        <canvas class="vc" id="c1"></canvas>
+        <div class="zone-bot">
+          <div class="zb-pct" style="color:#ff9f0a">50%</div>
+          <div class="zb-txt">안테나 가변 필터링<br>Noise Elimination</div>
+        </div>
+      </div>
+      <!-- COL 2 : 20% -->
+      <div class="col" style="background:rgba(5,9,18,0.98)" id="col2">
+        <div class="zone-top"><span class="zt-n" style="color:#00ff9d">VERIFIED</span></div>
+        <canvas class="vc" id="c2"></canvas>
+        <div class="zone-bot">
+          <div class="zb-pct" style="color:#00ff9d">20%</div>
+          <div class="zb-txt">로컬 MAENG 무결성 검증 완료<br>Certified Output</div>
+        </div>
       </div>
     </div>
-    <div class="canvas-wrap">
-      <canvas id="viz"></canvas>
-      <div class="viz-stat">
-        <div class="stat-val" id="stat-val">20%</div>
-        <div class="stat-label" id="stat-lbl">Verified</div>
-      </div>
-    </div>
-    <div class="viz-bottom">
-      <p class="stage-desc" id="stage-desc">
-        <strong>MARINES Protocol</strong> — 3 independent virtual agents perform mutual fact-checking. Only the top 20% of data particles survive final cross-validation and emerge as <strong>100% Verified Truth</strong>.
-      </p>
-      <div class="verified-badge" id="v-badge">
-        <div class="vb-dot"></div>
-        <span class="vb-text">100% Verified Truth</span>
-      </div>
+
+    <div class="stats">
+      <div class="st"><div class="sv" style="color:#ef5350">160</div><div class="sl">Raw Particles</div></div>
+      <div class="st"><div class="sv" style="color:#ff9f0a">80</div><div class="sl">Filtered Particles</div></div>
+      <div class="st"><div class="sv" style="color:#00ff9d">32</div><div class="sl">Verified Particles</div></div>
     </div>
   </div>
 
-  <!-- PROCESS CARDS -->
-  <div class="process-row">
-    <div class="proc-card" id="pc0" onclick="setStage(0)">
-      <div class="proc-num">STEP 01</div>
-      <div class="proc-name" style="color:#64b5f6">ANTENNA</div>
-      <div class="proc-sub">Adaptive data source validation. All raw signals ingested from Decentralized Integrity Nodes.</div>
-      <div class="proc-pct" style="color:#64b5f6">100%</div>
-      <div class="proc-bar" style="width:100%;background:linear-gradient(90deg,#64b5f6,rgba(100,181,246,.2))"></div>
-    </div>
-    <div class="proc-card" id="pc1" onclick="setStage(1)">
-      <div class="proc-num">STEP 02</div>
-      <div class="proc-name" style="color:#ff9f0a">BORAMAE</div>
-      <div class="proc-sub">Hierarchical multi-node logic filtering. Noise eliminated. Data volume reduced by half.</div>
-      <div class="proc-pct" style="color:#ff9f0a">50%</div>
-      <div class="proc-bar" style="width:50%;background:linear-gradient(90deg,#ff9f0a,rgba(255,159,10,.2))"></div>
-    </div>
-    <div class="proc-card active-card" id="pc2" onclick="setStage(2)">
-      <div class="proc-num">STEP 03</div>
-      <div class="proc-name" style="color:#00ff9d">MARINES</div>
-      <div class="proc-sub">Triple independent LLM cross-critique. Only the top 20% of verified particles are extracted.</div>
-      <div class="proc-pct" style="color:#00ff9d">20%</div>
-      <div class="proc-bar" style="width:20%"></div>
-    </div>
-  </div>
-
-  <div class="hero-footer">
-    <span class="hf-tag"><div class="hf-dot"></div>Local First · Zero External Packet Leakage</span>
-    <span class="hf-tag"><div class="hf-dot"></div>Global Tier-1 Clusters Connected</span>
-    <span class="hf-tag"><div class="hf-dot"></div>Air-Gap Hardware Isolation</span>
-    <a class="cta-btn" href="mailto:ceo@aigstack.kr">Request IR Briefing ↗</a>
+  <div class="hfooter">
+    <span class="ft"><div class="ftd"></div>Local First · Zero Packet Leakage</span>
+    <span class="ft"><div class="ftd"></div>Global Tier-1 Clusters</span>
+    <span class="ft"><div class="ftd"></div>Air-Gap Isolation</span>
+    <a class="cta" href="mailto:ceo@aigstack.kr">Request IR Briefing ↗</a>
   </div>
 </div>
 
 <script>
-/* ─── SHIELD PARTICLES (energy field background) ─── */
+/* ── SHIELD ── */
 (function(){
-  var c=document.getElementById("shield");
-  var ctx=c.getContext("2d");
-  var pts=[];
-  function resize(){c.width=c.offsetWidth||window.innerWidth;c.height=Math.max(document.body.scrollHeight||800,window.innerHeight||800);}
-  resize();
-  for(var i=0;i<60;i++){
-    pts.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,a:Math.random()});
-  }
-  function draw(){
+  var c=document.getElementById("shield"),ctx=c.getContext("2d"),pts=[];
+  function rsz(){c.width=window.innerWidth||800;c.height=Math.max(document.body.scrollHeight||700,window.innerHeight||700);}
+  rsz();window.addEventListener("resize",rsz);
+  for(var i=0;i<55;i++)pts.push({x:Math.random()*(c.width||800),y:Math.random()*(c.height||700),vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.3+.4});
+  (function draw(){
     ctx.clearRect(0,0,c.width,c.height);
     pts.forEach(function(p){
       p.x+=p.vx;p.y+=p.vy;
       if(p.x<0||p.x>c.width)p.vx*=-1;
       if(p.y<0||p.y>c.height)p.vy*=-1;
       ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle="rgba(0,255,157,"+( p.a*.18)+")";ctx.fill();
+      ctx.fillStyle="rgba(0,255,157,0.16)";ctx.fill();
     });
-    for(var i=0;i<pts.length;i++){
-      for(var j=i+1;j<pts.length;j++){
-        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-        if(d<90){
-          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
-          ctx.strokeStyle="rgba(0,255,157,"+((.06)*(1-d/90))+")";ctx.lineWidth=.5;ctx.stroke();
-        }
-      }
+    for(var i=0;i<pts.length;i++)for(var j=i+1;j<pts.length;j++){
+      var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<80){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle="rgba(0,255,157,"+(0.05*(1-d/80))+")";ctx.lineWidth=.5;ctx.stroke();}
     }
     requestAnimationFrame(draw);
-  }
-  draw();
+  })();
 })();
 
-/* ─── LOGOS ENGINE VISUALIZER ─── */
-var stage=2;
-var particles=[];
-var animId=null;
-
-var stageData=[
-  {pct:"100%",lbl:"Raw Data Ingested",tag:"ANTENNA",desc:"<strong>ANTENNA Protocol</strong> — Adaptive signal acquisition from Global Tier-1 Clusters. All incoming data particles captured. <strong>No filtering yet — 100% raw volume</strong> in play.",badge:false},
-  {pct:"50%",lbl:"Noise Filtered",tag:"BORAMAE",desc:"<strong>BORAMAE Protocol</strong> — Hierarchical multi-node analysis. Unverifiable and low-integrity sources eliminated. Data volume reduced to <strong>50% of original signal</strong>.",badge:false},
-  {pct:"20%",lbl:"Verified",tag:"MARINES",desc:"<strong>MARINES Protocol</strong> — 3 independent virtual agents perform mutual fact-checking. Only the top 20% of data particles survive final cross-validation and emerge as <strong>100% Verified Truth</strong>.",badge:true}
-];
-
-var COLS_ANT=["#64b5f6","#ef5350","#ffa726","#ab47bc","#26c6da","#ffffff","#ff7043","#8d6e63"];
-var COL_BOR="#ff9f0a";
-var COL_MAR="#00ff9d";
-
-function initParticles(stageIdx){
-  var canvas=document.getElementById("viz");
-  var w=canvas.width,h=canvas.height;
-  particles=[];
-  var count=stageIdx===0?160:stageIdx===1?80:32;
-  for(var i=0;i<count;i++){
-    var angle=Math.random()*Math.PI*2;
-    var speed=stageIdx===0?(Math.random()*2+1):(Math.random()*.8+.2);
-    var col=stageIdx===0?COLS_ANT[Math.floor(Math.random()*COLS_ANT.length)]:stageIdx===1?COL_BOR:COL_MAR;
-    var startX=stageIdx===0?(Math.random()<.5?-10:w+10):w*(.1+Math.random()*.4);
-    var startY=stageIdx===0?(Math.random()*h):h*(.2+Math.random()*.6);
-    var targetX=stageIdx===2?(w*.72+Math.random()*20):(w*(.05+Math.random()*.7));
-    var targetY=stageIdx===2?(h*.5+(Math.random()-.5)*30):(h*(.1+Math.random()*.8));
-    if(stageIdx===1){
-      var col2=i%3===0?"#ef9a9a":i%3===1?"#fff59d":COL_BOR;
-      col=i<count*.4?col2:COL_BOR;
-    }
-    particles.push({x:startX,y:startY,tx:targetX,ty:targetY,vx:(Math.random()-.5)*speed,vy:(Math.random()-.5)*speed,col:col,r:stageIdx===2?2.5:stageIdx===1?1.8:1.5,alpha:1,t:Math.random()*60});
-  }
+/* ── CANVAS INIT HELPER ── */
+function initCanvas(id, colId){
+  var cv=document.getElementById(id);
+  var col=document.getElementById(colId||id.replace('c','col'));
+  /* match height to column, set pixel width explicitly */
+  cv.width=col.offsetWidth||220;
+  cv.height=240;
+  cv.style.height="240px";
+  return cv;
 }
 
-function drawViz(){
-  var canvas=document.getElementById("viz");
-  if(!canvas)return;
-  var ctx=canvas.getContext("2d");
-  var w=canvas.width,h=canvas.height;
-  ctx.clearRect(0,0,w,h);
+/* ── COL 0 : 100% RAW ── */
+(function(){
+  var cv=initCanvas("c0","col0");
+  var W=cv.width,H=cv.height,ctx=cv.getContext("2d");
+  var COLS=["#ef5350","#ffa726","#ab47bc","#ef9a9a","#fff176","#64b5f6","#ff7043","#ce93d8","#ffe082","#90caf9","#4db6ac","#f48fb1","#ff6e40","#ea80fc"];
+  var pts=[];
+  for(var i=0;i<160;i++){
+    pts.push({
+      x:2+Math.random()*(W-4),
+      y:2+Math.random()*(H-4),
+      vx:(Math.random()-.5)*1.3,
+      vy:(Math.random()-.5)*1.3,
+      r:.9+Math.random()*1.6,
+      col:COLS[Math.floor(Math.random()*COLS.length)],
+      a:.6+Math.random()*.4,
+      ph:Math.random()*Math.PI*2,
+      wb:(Math.random()-.5)*.014
+    });
+  }
+  (function tick(){
+    ctx.fillStyle="rgba(10,12,22,0.22)";ctx.fillRect(0,0,W,H);
+    pts.forEach(function(p){
+      p.ph+=p.wb;
+      p.vx+=Math.cos(p.ph)*.035;p.vy+=Math.sin(p.ph)*.035;
+      p.vx=Math.max(-1.7,Math.min(1.7,p.vx));
+      p.vy=Math.max(-1.7,Math.min(1.7,p.vy));
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<p.r){p.x=p.r;p.vx=Math.abs(p.vx);}
+      if(p.x>W-p.r){p.x=W-p.r;p.vx=-Math.abs(p.vx);}
+      if(p.y<p.r){p.y=p.r;p.vy=Math.abs(p.vy);}
+      if(p.y>H-p.r){p.y=H-p.r;p.vy=-Math.abs(p.vy);}
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col;ctx.globalAlpha=p.a;ctx.fill();ctx.globalAlpha=1;
+    });
+    requestAnimationFrame(tick);
+  })();
+})();
 
-  if(stage===1){
-    for(var i=0;i<3;i++){
-      var lx=w*(.25+i*.2);
-      ctx.beginPath();ctx.moveTo(lx,8);ctx.lineTo(lx,h-8);
-      ctx.strokeStyle="rgba(255,159,10,0.06)";ctx.lineWidth=12;ctx.stroke();
-      ctx.beginPath();ctx.moveTo(lx,8);ctx.lineTo(lx,h-8);
-      ctx.strokeStyle="rgba(255,159,10,0.12)";ctx.lineWidth=1;ctx.setLineDash([4,6]);ctx.stroke();ctx.setLineDash([]);
+/* ── COL 1 : 50% FILTER ── */
+(function(){
+  var cv=initCanvas("c1","col1");
+  var W=cv.width,H=cv.height,ctx=cv.getContext("2d");
+  var NOISE_C=["#ef5350","#ffa726","#fff176","#f48fb1","#ce93d8"];
+  var pts=[];
+  for(var i=0;i<80;i++){
+    var noise=i<20;
+    var rowY=24+(Math.floor(i/6))*(H-48)/13;
+    pts.push({
+      x:2+Math.random()*(W-4),
+      y:noise?Math.random()*H:rowY+(Math.random()*6-3),
+      vx:(Math.random()-.5)*.7,vy:(Math.random()-.5)*.7,
+      r:.9+Math.random()*1.2,
+      col:noise?NOISE_C[Math.floor(Math.random()*NOISE_C.length)]:"#ff9f0a",
+      a:noise?.42:.8,noise:noise,
+      rowY:rowY,
+      ph:Math.random()*Math.PI*2,
+      lifeMax:200+Math.floor(Math.random()*180),life:Math.floor(Math.random()*200)
+    });
+  }
+  (function tick(){
+    ctx.fillStyle="rgba(8,10,20,0.2)";ctx.fillRect(0,0,W,H);
+    pts.forEach(function(p){
+      p.ph+=.01;
+      if(!p.noise){
+        p.vy+=(p.rowY-p.y)*.006;
+        p.vx+=(W*.5-p.x)*.0004;
+      }
+      p.vx=Math.max(-.9,Math.min(.9,p.vx));
+      p.vy=Math.max(-.9,Math.min(.9,p.vy));
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<p.r){p.x=p.r;p.vx=Math.abs(p.vx);}
+      if(p.x>W-p.r){p.x=W-p.r;p.vx=-Math.abs(p.vx);}
+      if(p.y<p.r){p.y=p.r;p.vy=Math.abs(p.vy);}
+      if(p.y>H-p.r){p.y=H-p.r;p.vy=-Math.abs(p.vy);}
+      var alpha=p.a;
+      if(p.noise){
+        p.life=(p.life+1)%p.lifeMax;
+        var half=p.lifeMax*.5;
+        alpha=p.life<half*.3?(p.life/(half*.3))*p.a:p.life<half?.a:p.life<half*1.6?p.a*((half*1.6-p.life)/(half*.6)):.02;
+      }
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col;ctx.globalAlpha=Math.max(0,alpha);ctx.fill();ctx.globalAlpha=1;
+    });
+    requestAnimationFrame(tick);
+  })();
+})();
+
+/* ── COL 2 : 20% VERIFIED ── */
+(function(){
+  var cv=initCanvas("c2","col2");
+  var W=cv.width,H=cv.height,ctx=cv.getContext("2d");
+  var LANES=8,PER=4,pts=[];
+  for(var l=0;l<LANES;l++){
+    var ly=22+(l*(H-44)/(LANES-1));
+    for(var j=0;j<PER;j++){
+      var bx=((-(j*(W/PER))+(Math.random()*16-8))%W+W)%W;
+      pts.push({x:bx,y:ly+(Math.random()*6-3),baseY:ly,speed:.42+Math.random()*.3,r:1.1+Math.random()*.9,a:.78+Math.random()*.22,ph:Math.random()*Math.PI*2});
     }
   }
-
-  if(stage===2){
-    var cx=w*.73,cy=h*.5,glow=ctx.createRadialGradient(cx,cy,0,cx,cy,40);
-    glow.addColorStop(0,"rgba(0,255,157,0.22)");glow.addColorStop(1,"rgba(0,255,157,0)");
-    ctx.beginPath();ctx.arc(cx,cy,40,0,Math.PI*2);ctx.fillStyle=glow;ctx.fill();
-    ctx.beginPath();ctx.arc(cx,cy,6,0,Math.PI*2);
-    ctx.fillStyle="rgba(0,255,157,0.9)";ctx.fill();
-    ctx.font="10px 'SF Mono',monospace";ctx.fillStyle="rgba(0,255,157,0.7)";ctx.textAlign="left";
-    ctx.fillText("▶ VERIFIED TRUTH",cx+14,cy-6);
-    ctx.fillStyle="rgba(0,255,157,0.4)";ctx.font="9px 'SF Mono',monospace";
-    ctx.fillText("100% Certified · Integrity Score 99.99%",cx+14,cy+8);
-  }
-
-  particles.forEach(function(p){
-    if(p.t>0){p.t--;return;}
-    if(stage===2){
-      p.x+=(p.tx-p.x)*.06+p.vx*.2;
-      p.y+=(p.ty-p.y)*.06+p.vy*.2;
-    } else if(stage===1){
-      p.x+=(p.tx-p.x)*.04+p.vx*.3;
-      p.y+=(p.ty-p.y)*.04+p.vy*.3;
-    } else {
-      p.x+=p.vx*1.5;p.y+=p.vy*1.5;
-      if(p.x<0||p.x>w)p.vx*=-1;
-      if(p.y<0||p.y>h)p.vy*=-1;
+  var gt=0,cx=W*.5,cy=H*.5;
+  (function tick(){
+    ctx.fillStyle="rgba(5,9,18,0.18)";ctx.fillRect(0,0,W,H);
+    gt+=.024;
+    for(var l=0;l<LANES;l++){
+      var ly=22+(l*(H-44)/(LANES-1));
+      ctx.beginPath();ctx.moveTo(0,ly);ctx.lineTo(W,ly);
+      ctx.strokeStyle="rgba(0,255,157,0.04)";ctx.lineWidth=.5;ctx.stroke();
     }
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=p.col;ctx.globalAlpha=p.alpha*.9;ctx.fill();ctx.globalAlpha=1;
-  });
-
-  if(stage===0){
-    ctx.font="10px 'SF Mono',monospace";ctx.fillStyle="rgba(100,181,246,0.5)";ctx.textAlign="left";
-    ctx.fillText("↓ INCOMING RAW DATA — "+particles.length+" SIGNALS",10,14);
-  }
-
-  animId=requestAnimationFrame(drawViz);
-}
-
-function setStage(idx){
-  stage=idx;
-  var canvas=document.getElementById("viz");
-  var w=canvas.offsetWidth||600;var h=canvas.offsetHeight||220;
-  canvas.width=w;canvas.height=h;
-  if(animId)cancelAnimationFrame(animId);
-  initParticles(idx);
-  var d=stageData[idx];
-  document.getElementById("stat-val").textContent=d.pct;
-  document.getElementById("stat-lbl").textContent=d.lbl;
-  document.getElementById("stage-desc").innerHTML=d.desc;
-  var vb=document.getElementById("v-badge");
-  d.badge?vb.classList.add("show"):vb.classList.remove("show");
-  ["ant","bor","mar"].forEach(function(t,i){document.getElementById("tag-"+t).classList.toggle("active",i===idx);});
-  ["pc0","pc1","pc2"].forEach(function(id,i){document.getElementById(id).classList.toggle("active-card",i===idx);});
-  drawViz();
-}
-
-window.addEventListener("load",function(){
-  var canvas=document.getElementById("viz");
-  canvas.width=canvas.offsetWidth||600;canvas.height=canvas.offsetHeight||220;
-  setStage(2);
-  setTimeout(function(){
-    setStage(0);
-    setTimeout(function(){setStage(1);setTimeout(function(){setStage(2);},2000);},2000);
-  },400);
-});
-window.setStage=setStage;
+    pts.forEach(function(p){
+      p.ph+=.011;
+      p.y=p.baseY+Math.sin(p.ph)*3.2;
+      p.x+=p.speed;
+      if(p.x>W+p.r)p.x=-p.r;
+      var gr=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3.2);
+      gr.addColorStop(0,"rgba(0,255,157,0.26)");gr.addColorStop(1,"rgba(0,255,157,0)");
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*3.2,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle="#00ff9d";ctx.globalAlpha=p.a;ctx.fill();ctx.globalAlpha=1;
+    });
+    var pulse=.14+Math.sin(gt)*.07;
+    var g2=ctx.createRadialGradient(cx,cy,0,cx,cy,26);
+    g2.addColorStop(0,"rgba(0,255,157,"+(pulse*1.8)+")");g2.addColorStop(.5,"rgba(0,255,157,"+(pulse*.35)+")");g2.addColorStop(1,"rgba(0,255,157,0)");
+    ctx.beginPath();ctx.arc(cx,cy,26,0,Math.PI*2);ctx.fillStyle=g2;ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,5.5,0,Math.PI*2);ctx.fillStyle="rgba(0,255,157,0.92)";ctx.fill();
+    ctx.textAlign="center";
+    ctx.font="500 9px -apple-system,sans-serif";ctx.fillStyle="rgba(0,255,157,0.75)";ctx.fillText("✓ VERIFIED",cx,cy-13);
+    ctx.font="300 8px 'SF Mono',monospace";ctx.fillStyle="rgba(0,255,157,0.42)";ctx.fillText("99.99%",cx,cy+18);
+    requestAnimationFrame(tick);
+  })();
+})();
 </script>
