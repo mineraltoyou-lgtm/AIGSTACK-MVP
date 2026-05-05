@@ -1,5 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>LOGOS ENGINE Pipeline</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--em:#00ff9d;--bg:#050810;--br:rgba(255,255,255,.08);--br2:rgba(0,255,157,.2);--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.52);--t3:rgba(255,255,255,.22)}
@@ -13,8 +17,6 @@ nav{background:rgba(5,8,16,.88);backdrop-filter:blur(20px);-webkit-backdrop-filt
 .logo-main{font-size:15px;font-weight:700;letter-spacing:2px;color:var(--em);line-height:1}
 .logo-sub{font-size:9px;font-weight:300;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase}
 .nav-menu{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
-
-/* nav-item — dropdown이 이 안에 있으므로 호버 영역 유지 */
 .nav-item{position:relative}
 .nav-btn{background:none;border:none;color:var(--t2);font-size:12px;font-weight:400;padding:5px 8px;cursor:pointer;border-radius:6px;transition:color .2s,background .2s;font-family:inherit;letter-spacing:.3px;display:flex;align-items:center;gap:4px;white-space:nowrap}
 .nav-btn:hover{color:var(--t1);background:rgba(255,255,255,.05)}
@@ -22,27 +24,8 @@ nav{background:rgba(5,8,16,.88);backdrop-filter:blur(20px);-webkit-backdrop-filt
 .nav-contact{color:var(--t2);font-size:12px;padding:5px 12px;border:.5px solid rgba(255,255,255,.18);border-radius:20px;cursor:pointer;background:none;font-family:inherit;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap}
 .nav-contact:hover{border-color:var(--em);color:var(--em)}
 
-/* DROPDOWN — nav-item:hover 로 제어, gap 없이 붙임 */
-.dd{
-  position:absolute;
-  top:100%;        /* 버튼 바로 아래 — gap 없음 */
-  left:0;
-  min-width:260px;
-  background:rgba(8,12,24,.97);
-  border:.5px solid var(--br2);
-  border-radius:0 0 12px 12px;
-  padding:10px;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .18s;
-  backdrop-filter:blur(24px);
-  z-index:200;
-}
-/* nav-item 위에 마우스가 있는 동안(버튼이든 드롭다운이든) 유지 */
-.nav-item:hover .dd{
-  opacity:1;
-  pointer-events:auto;
-}
+.dd{position:absolute;top:100%;left:0;min-width:260px;background:rgba(8,12,24,.97);border:.5px solid var(--br2);border-radius:0 0 12px 12px;padding:10px;opacity:0;pointer-events:none;transition:opacity .18s;backdrop-filter:blur(24px);z-index:200;}
+.nav-item:hover .dd{opacity:1;pointer-events:auto;}
 .dd-h{font-size:9px;letter-spacing:2px;color:var(--em);text-transform:uppercase;font-weight:500;padding:2px 6px 7px;border-bottom:.5px solid var(--br);margin-bottom:7px}
 .dd-i{display:flex;align-items:center;gap:7px;padding:6px 6px;border-radius:7px;cursor:pointer;transition:background .15s}
 .dd-i:hover{background:rgba(0,255,157,.07)}
@@ -74,9 +57,97 @@ canvas.vc{display:block;width:100%}
 .ftd{width:4px;height:4px;border-radius:50%;background:var(--em);opacity:.55;flex-shrink:0}
 .cta{padding:9px 18px;border-radius:24px;border:.5px solid var(--em);background:rgba(0,255,157,.07);color:var(--em);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none;white-space:nowrap}
 .cta:hover{background:var(--em);color:#000}
-</style>
 
-<h2 class="sr-only">AIGSTACK 전체 페이지 — NAV 드롭다운 호버 유지 수정 + 파티클 + 푸터</h2>
+/* SECTIONS CSS */
+.sec{padding:48px 14px;max-width:800px;margin:0 auto}
+.sec-label{font-size:9px;letter-spacing:3px;color:var(--em);text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.sec-title{font-size:22px;font-weight:200;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
+.sec-title strong{font-weight:600}
+.sec-sub{font-size:13px;color:var(--t2);font-weight:300;line-height:1.65;margin-bottom:28px;max-width:560px}
+.divider{height:.5px;background:var(--br);margin:0 14px}
+.philosophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.philosophy-grid{grid-template-columns:1fr}}
+.ph-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s}
+.ph-card:hover{border-color:var(--br2)}
+.ph-icon{font-size:18px;margin-bottom:8px}
+.ph-name{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--em);text-transform:uppercase;margin-bottom:4px}
+.ph-desc{font-size:12px;color:var(--t2);line-height:1.6;font-weight:300}
+.sf-list{display:flex;flex-direction:column;gap:10px}
+.sf-item{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:14px;transition:border-color .2s,background .2s}
+.sf-item:hover{border-color:var(--br2);background:rgba(0,255,157,.03)}
+.sf-num{font-size:11px;font-family:'SF Mono',monospace;color:var(--em);opacity:.6;min-width:24px;padding-top:2px}
+.sf-title{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:3px}
+.sf-meta{font-size:11px;color:var(--t2);font-weight:300;line-height:1.5;margin-bottom:4px;}
+.sf-tag{display:inline-block;font-size:9px;letter-spacing:.8px;padding:2px 6px;border-radius:4px;margin-right:5px;margin-bottom:4px;font-weight:500}
+.pat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.pat-grid{grid-template-columns:1fr}}
+.pat-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:16px 18px;transition:border-color .2s}
+.pat-card:hover{border-color:var(--br2)}
+.pat-num{font-size:9px;letter-spacing:2px;color:var(--em);opacity:.6;text-transform:uppercase;margin-bottom:6px;font-family:'SF Mono',monospace}
+.pat-name{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:6px}
+.pat-desc{font-size:11px;color:var(--t2);line-height:1.6;font-weight:300}
+.pat-status{display:inline-flex;align-items:center;gap:4px;font-size:9px;margin-top:10px;padding:3px 8px;border-radius:20px}
+.pat-filed{background:rgba(0,255,157,.08);border:.5px solid rgba(0,255,157,.25);color:var(--em)}
+.pat-pending{background:rgba(255,159,10,.08);border:.5px solid rgba(255,159,10,.25);color:#ff9f0a}
+.infra-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:480px){.infra-grid{grid-template-columns:1fr}}
+.inf-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px}
+.inf-label{font-size:9px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;margin-bottom:8px}
+.inf-items{display:flex;flex-direction:column;gap:5px}
+.inf-row{display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.inf-key{color:var(--t2);font-weight:300}
+.inf-val{color:var(--em);font-family:'SF Mono',monospace;font-size:10px}
+.ir-box{background:rgba(0,255,157,.04);border:.5px solid rgba(0,255,157,.18);border-radius:16px;padding:28px 24px;text-align:center;margin-top:0}
+.ir-title{font-size:18px;font-weight:200;color:#fff;margin-bottom:8px}
+.ir-title strong{font-weight:600;color:var(--em)}
+.ir-sub{font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.6}
+.ir-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ir-btn-main{padding:10px 24px;border-radius:24px;border:.5px solid var(--em);background:rgba(0,255,157,.1);color:var(--em);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
+.ir-btn-main:hover{background:var(--em);color:#000}
+.ir-btn-sub{padding:10px 24px;border-radius:24px;border:.5px solid var(--br);background:transparent;color:var(--t2);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
+.ir-btn-sub:hover{border-color:var(--t2);color:var(--t1)}
+.vf-section{padding:48px 14px;max-width:800px;margin:0 auto}
+.vf-hero{text-align:center;margin-bottom:36px}
+.vf-eyebrow{font-size:9px;letter-spacing:3px;color:var(--em);text-transform:uppercase;opacity:.7;margin-bottom:10px}
+.vf-headline{font-size:22px;font-weight:200;color:#fff;letter-spacing:-.5px;margin-bottom:8px}
+.vf-headline strong{font-weight:600;color:var(--em)}
+.vf-sub{font-size:13px;color:var(--t2);font-weight:300;line-height:1.65;max-width:540px;margin:0 auto}
+.vf-banner{background:rgba(0,255,157,.04);border:.5px solid rgba(0,255,157,.15);border-radius:12px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:flex-start;gap:12px}
+.vf-banner-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.vf-banner-text{font-size:12px;color:var(--t2);line-height:1.65;font-weight:300}
+.vf-banner-text strong{color:var(--em);font-weight:500}
+.vf-matrix-label{font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
+.vf-models{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px}
+@media(max-width:480px){.vf-models{grid-template-columns:1fr}}
+.vf-model-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px;transition:border-color .2s,background .2s;cursor:default}
+.vf-model-card:hover{border-color:var(--br2);background:rgba(0,255,157,.03)}
+.vf-model-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.vf-model-name{font-size:12px;font-weight:600;letter-spacing:.3px}
+.vf-model-badge{font-size:8px;letter-spacing:.8px;padding:2px 7px;border-radius:20px;font-weight:500}
+.vf-model-org{font-size:10px;color:var(--t3);font-weight:300;margin-bottom:6px;font-family:'SF Mono',monospace}
+.vf-model-method{font-size:10px;color:var(--t2);font-weight:300;line-height:1.5}
+.vf-model-method span{color:var(--em);font-weight:500}
+.vf-verified-stamp{font-size:9px;letter-spacing:1px;color:var(--em);opacity:.6;margin-top:8px;display:flex;align-items:center;gap:4px}
+.vf-verified-stamp::before{content:'✓';font-size:10px;opacity:.8}
+.vf-consensus{margin-bottom:28px}
+.vf-consensus-title{font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
+.vf-consensus-items{display:flex;flex-direction:column;gap:6px}
+.vf-ci{display:flex;align-items:center;gap:10px;background:rgba(10,15,30,.6);border:.5px solid var(--br);border-radius:8px;padding:9px 12px;transition:border-color .15s}
+.vf-ci:hover{border-color:rgba(0,255,157,.2)}
+.vf-ci-score{font-size:10px;font-family:'SF Mono',monospace;color:var(--em);min-width:32px;font-weight:600}
+.vf-ci-bar-wrap{flex:1;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.vf-ci-bar{height:100%;background:linear-gradient(90deg,var(--em),rgba(0,255,157,.4));border-radius:2px}
+.vf-ci-label{font-size:11px;color:var(--t2);font-weight:300;min-width:160px;text-align:right}
+.vf-meta{background:rgba(0,255,157,.03);border:.5px solid rgba(0,255,157,.12);border-left:2px solid var(--em);border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:28px}
+.vf-meta-label{font-size:9px;letter-spacing:2px;color:var(--em);text-transform:uppercase;margin-bottom:6px}
+.vf-meta-text{font-size:12px;color:var(--t2);line-height:1.7;font-weight:300}
+.vf-meta-text strong{color:var(--t1);font-weight:500}
+.vf-date{text-align:center;font-size:10px;color:var(--t3);font-family:'SF Mono',monospace;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">AIGSTACK 전체 페이지</h2>
 
 <nav>
   <div class="nav-inner">
@@ -85,7 +156,6 @@ canvas.vc{display:block;width:100%}
       <span class="logo-sub">INTEGRITY INFRASTRUCTURE</span>
     </div>
     <div class="nav-menu">
-
       <div class="nav-item">
         <button class="nav-btn"><span class="cpill" style="background:rgba(255,69,58,.12);color:#ff453a;border:.5px solid rgba(255,69,58,.35)">X</span>XAI</button>
         <div class="dd">
@@ -97,7 +167,6 @@ canvas.vc{display:block;width:100%}
           <div class="dd-i"><span class="dd-n" style="color:#ff453a">05</span><span class="dd-l">R&D Patent Autonomous Reasoning</span></div>
         </div>
       </div>
-
       <div class="nav-item">
         <button class="nav-btn"><span class="cpill" style="background:rgba(0,122,255,.12);color:#007AFF;border:.5px solid rgba(0,122,255,.35)">A</span>Infra</button>
         <div class="dd">
@@ -109,7 +178,6 @@ canvas.vc{display:block;width:100%}
           <div class="dd-i"><span class="dd-n" style="color:#007AFF">10</span><span class="dd-l">AI/SaaS Local-First Migration</span></div>
         </div>
       </div>
-
       <div class="nav-item">
         <button class="nav-btn"><span class="cpill" style="background:rgba(48,209,88,.1);color:#30D158;border:.5px solid rgba(48,209,88,.32)">B</span>Integrity</button>
         <div class="dd">
@@ -121,7 +189,6 @@ canvas.vc{display:block;width:100%}
           <div class="dd-i"><span class="dd-n" style="color:#30D158">15</span><span class="dd-l">Physical Resource Integrity Monitor</span></div>
         </div>
       </div>
-
       <div class="nav-item">
         <button class="nav-btn"><span class="cpill" style="background:rgba(255,159,10,.1);color:#FF9F0A;border:.5px solid rgba(255,159,10,.32)">C</span>Regulation</button>
         <div class="dd">
@@ -133,7 +200,6 @@ canvas.vc{display:block;width:100%}
           <div class="dd-i"><span class="dd-n" style="color:#FF9F0A">20</span><span class="dd-l">Data Anonymization Pipeline</span></div>
         </div>
       </div>
-
       <div class="nav-item">
         <button class="nav-btn"><span class="cpill" style="background:rgba(191,90,242,.1);color:#BF5AF2;border:.5px solid rgba(191,90,242,.32)">D</span>Business</button>
         <div class="dd">
@@ -145,7 +211,6 @@ canvas.vc{display:block;width:100%}
           <div class="dd-i"><span class="dd-n" style="color:#BF5AF2">25</span><span class="dd-l">Autonomous Partner Matching Engine</span></div>
         </div>
       </div>
-
       <div class="nav-item">
         <button class="nav-btn"><span class="cpill" style="background:rgba(100,210,255,.1);color:#64D2FF;border:.5px solid rgba(100,210,255,.32)">E</span>Dev</button>
         <div class="dd">
@@ -157,7 +222,6 @@ canvas.vc{display:block;width:100%}
           <div class="dd-i"><span class="dd-n" style="color:#64D2FF">30</span><span class="dd-l">Container Security Standardization</span></div>
         </div>
       </div>
-
       <a class="nav-contact" href="mailto:ceo@aigstack.kr">Contact ↗</a>
     </div>
   </div>
@@ -209,147 +273,178 @@ canvas.vc{display:block;width:100%}
 
 <script>
 function boot(){
-  (function(){
-    var cv=document.getElementById("c0");
-    cv.width=document.getElementById("col0").offsetWidth||220;
-    cv.height=240;cv.style.height="240px";
-    var W=cv.width,H=cv.height,ctx=cv.getContext("2d");
-    var COLS=["#ef5350","#ffa726","#ab47bc","#ef9a9a","#fff176","#64b5f6","#ff7043","#ce93d8","#ffe082","#90caf9","#4db6ac","#f48fb1","#ff6e40","#ea80fc"];
-    var pts=[];
-    for(var i=0;i<160;i++){pts.push({x:2+Math.random()*(W-4),y:2+Math.random()*(H-4),vx:(Math.random()-.5)*1.3,vy:(Math.random()-.5)*1.3,r:.9+Math.random()*1.6,col:COLS[Math.floor(Math.random()*COLS.length)],a:.6+Math.random()*.4,ph:Math.random()*Math.PI*2,wb:(Math.random()-.5)*.014});}
-    (function tick(){
-      ctx.fillStyle="rgba(10,12,22,0.22)";ctx.fillRect(0,0,W,H);
-      pts.forEach(function(p){
-        p.ph+=p.wb;p.vx+=Math.cos(p.ph)*.035;p.vy+=Math.sin(p.ph)*.035;
-        p.vx=Math.max(-1.7,Math.min(1.7,p.vx));p.vy=Math.max(-1.7,Math.min(1.7,p.vy));
-        p.x+=p.vx;p.y+=p.vy;
-        if(p.x<p.r){p.x=p.r;p.vx=Math.abs(p.vx);}if(p.x>W-p.r){p.x=W-p.r;p.vx=-Math.abs(p.vx);}
-        if(p.y<p.r){p.y=p.r;p.vy=Math.abs(p.vy);}if(p.y>H-p.r){p.y=H-p.r;p.vy=-Math.abs(p.vy);}
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.col;ctx.globalAlpha=p.a;ctx.fill();ctx.globalAlpha=1;
-      });
-      requestAnimationFrame(tick);
-    })();
-  })();
-  (function(){
-    var cv=document.getElementById("c1");
-    cv.width=document.getElementById("col1").offsetWidth||220;
-    cv.height=240;cv.style.height="240px";
-    var W=cv.width,H=cv.height,ctx=cv.getContext("2d");
-    var NC=["#ef5350","#ffa726","#fff176","#f48fb1","#ce93d8"];
-    var pts=[];
-    for(var i=0;i<80;i++){var noise=i<20,rowY=24+(Math.floor(i/6))*(H-48)/13;pts.push({x:2+Math.random()*(W-4),y:noise?Math.random()*H:rowY+(Math.random()*6-3),vx:(Math.random()-.5)*.7,vy:(Math.random()-.5)*.7,r:.9+Math.random()*1.2,col:noise?NC[Math.floor(Math.random()*NC.length)]:"#ff9f0a",a:noise?.42:.8,noise:noise,rowY:rowY,ph:Math.random()*Math.PI*2,lifeMax:200+Math.floor(Math.random()*180),life:Math.floor(Math.random()*200)});}
-    (function tick(){
-      ctx.fillStyle="rgba(8,10,20,0.2)";ctx.fillRect(0,0,W,H);
-      pts.forEach(function(p){
-        p.ph+=.01;
-        if(!p.noise){p.vy+=(p.rowY-p.y)*.006;p.vx+=(W*.5-p.x)*.0004;}
-        p.vx=Math.max(-.9,Math.min(.9,p.vx));p.vy=Math.max(-.9,Math.min(.9,p.vy));
-        p.x+=p.vx;p.y+=p.vy;
-        if(p.x<p.r){p.x=p.r;p.vx=Math.abs(p.vx);}if(p.x>W-p.r){p.x=W-p.r;p.vx=-Math.abs(p.vx);}
-        if(p.y<p.r){p.y=p.r;p.vy=Math.abs(p.vy);}if(p.y>H-p.r){p.y=H-p.r;p.vy=-Math.abs(p.vy);}
-        var alpha=p.a;
-        if(p.noise){p.life=(p.life+1)%p.lifeMax;var h=p.lifeMax*.5;alpha=p.life<h*.3?(p.life/(h*.3))*p.a:p.life<h?p.a:p.life<h*1.6?p.a*((h*1.6-p.life)/(h*.6)):.02;}
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.col;ctx.globalAlpha=Math.max(0,alpha);ctx.fill();ctx.globalAlpha=1;
-      });
-      requestAnimationFrame(tick);
-    })();
-  })();
-  (function(){
-    var cv=document.getElementById("c2");
-    cv.width=document.getElementById("col2").offsetWidth||220;
-    cv.height=240;cv.style.height="240px";
-    var W=cv.width,H=cv.height,ctx=cv.getContext("2d");
-    var LANES=8,PER=4,pts=[],gt=0,cx=W*.5,cy=H*.5;
-    for(var l=0;l<LANES;l++){var ly=22+(l*(H-44)/(LANES-1));for(var j=0;j<PER;j++){pts.push({x:((-(j*(W/PER))+(Math.random()*16-8))%W+W)%W,y:ly+(Math.random()*6-3),baseY:ly,speed:.42+Math.random()*.3,r:1.1+Math.random()*.9,a:.78+Math.random()*.22,ph:Math.random()*Math.PI*2});}}
-    (function tick(){
-      ctx.fillStyle="rgba(5,9,18,0.18)";ctx.fillRect(0,0,W,H);
-      gt+=.024;
-      for(var l=0;l<LANES;l++){var ly=22+(l*(H-44)/(LANES-1));ctx.beginPath();ctx.moveTo(0,ly);ctx.lineTo(W,ly);ctx.strokeStyle="rgba(0,255,157,0.04)";ctx.lineWidth=.5;ctx.stroke();}
-      pts.forEach(function(p){
-        p.ph+=.011;p.y=p.baseY+Math.sin(p.ph)*3.2;p.x+=p.speed;
-        if(p.x>W+p.r)p.x=-p.r;
-        var gr=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3.2);gr.addColorStop(0,"rgba(0,255,157,0.26)");gr.addColorStop(1,"rgba(0,255,157,0)");
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r*3.2,0,Math.PI*2);ctx.fillStyle=gr;ctx.fill();
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="#00ff9d";ctx.globalAlpha=p.a;ctx.fill();ctx.globalAlpha=1;
-      });
-      var pulse=.14+Math.sin(gt)*.07;
-      var g2=ctx.createRadialGradient(cx,cy,0,cx,cy,26);g2.addColorStop(0,"rgba(0,255,157,"+(pulse*1.8)+")");g2.addColorStop(.5,"rgba(0,255,157,"+(pulse*.35)+")");g2.addColorStop(1,"rgba(0,255,157,0)");
-      ctx.beginPath();ctx.arc(cx,cy,26,0,Math.PI*2);ctx.fillStyle=g2;ctx.fill();
-      ctx.beginPath();ctx.arc(cx,cy,5.5,0,Math.PI*2);ctx.fillStyle="rgba(0,255,157,0.92)";ctx.fill();
-      ctx.textAlign="center";ctx.font="500 9px -apple-system,sans-serif";ctx.fillStyle="rgba(0,255,157,0.75)";ctx.fillText("✓ VERIFIED",cx,cy-13);
-      ctx.font="300 8px 'SF Mono',monospace";ctx.fillStyle="rgba(0,255,157,0.42)";ctx.fillText("99.99%",cx,cy+18);
-      requestAnimationFrame(tick);
-    })();
-  })();
+  var col0 = document.getElementById("col0"),
+      col1 = document.getElementById("col1"),
+      col2 = document.getElementById("col2");
+
+  var cv0 = document.getElementById("c0"),
+      cv1 = document.getElementById("c1"),
+      cv2 = document.getElementById("c2");
+
+  var ctx0 = cv0.getContext("2d"),
+      ctx1 = cv1.getContext("2d"),
+      ctx2 = cv2.getContext("2d");
+
+  function resize() {
+     cv0.width = col0.offsetWidth || 220; cv0.height = 240; cv0.style.height="240px";
+     cv1.width = col1.offsetWidth || 220; cv1.height = 240; cv1.style.height="240px";
+     cv2.width = col2.offsetWidth || 220; cv2.height = 240; cv2.style.height="240px";
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  var COLS = ["#ef5350","#ffa726","#ab47bc","#ef9a9a","#fff176","#64b5f6","#ff7043","#ce93d8","#ffe082","#90caf9","#4db6ac","#f48fb1","#ff6e40","#ea80fc"];
+  var pts = [];
+  var NUM = 160;
+
+  // 전체 파이프라인 무결성 비율에 따른 파티클 운명 할당
+  // 160개 유입 -> 80개 필터링(안테나 탈락) -> 48개 무결성 실패(보라매 탈락) -> 32개 최종 통과(마린즈 합의)
+  for(var i=0; i<NUM; i++){
+    var fate = (i < 32) ? 'verified' : ((i < 80) ? 'drop_filter' : 'drop_intake');
+    var startX = Math.random() * (cv0.width + cv1.width + cv2.width); // 초기 화면을 채우기 위한 랜덤 배치
+    pts.push(initParticle({}, fate, startX));
+  }
+
+  function initParticle(p, fate, startX) {
+    p.fate = fate;
+    p.x = startX !== undefined ? startX : -Math.random()*30; // 죽으면 항상 화면 왼쪽 밖에서 재시작 (무한루프)
+    p.y = Math.random() * 240;
+    p.baseSpeed = 0.5 + Math.random() * 1.2;
+    p.vx = p.baseSpeed;
+    p.vy = (Math.random() - 0.5) * 1.5;
+    p.r = 0.9 + Math.random() * 1.6;
+    p.col = COLS[Math.floor(Math.random() * COLS.length)];
+    p.a = startX !== undefined ? (Math.random() * 0.5 + 0.5) : 0; 
+    p.ph = Math.random() * Math.PI * 2;
+    p.targetY = p.y;
+    return p;
+  }
+
+  function tick() {
+    var w0 = cv0.width, w1 = cv1.width, w2 = cv2.width;
+    var h = 240;
+
+    // 각 캔버스 초기화
+    ctx0.fillStyle="rgba(10,12,22,0.22)"; ctx0.fillRect(0,0,w0,h);
+    ctx1.fillStyle="rgba(8,10,20,0.2)";   ctx1.fillRect(0,0,w1,h);
+    ctx2.fillStyle="rgba(5,9,18,0.18)";   ctx2.fillRect(0,0,w2,h);
+
+    // Verified Zone (마린즈 엔진 통과 영역) 레인(Lanes) 시각화
+    var LANES = 8;
+    for(var l=0; l<LANES; l++) {
+      var ly = 22 + (l*(h-44)/(LANES-1));
+      ctx2.beginPath(); ctx2.moveTo(0, ly); ctx2.lineTo(w2, ly);
+      ctx2.strokeStyle = "rgba(0,255,157,0.04)"; ctx2.lineWidth = 0.5; ctx2.stroke();
+    }
+
+    // 파티클 글로벌 좌표계 이동 및 렌더링
+    pts.forEach(function(p) {
+      p.ph += 0.05;
+
+      // 새롭게 진입하는 파티클 페이드 인
+      if (p.a < 1 && p.x < w0 * 0.8) p.a += 0.02;
+
+      var inZone0 = p.x < w0;
+      var inZone1 = p.x >= w0 && p.x < (w0 + w1);
+      var inZone2 = p.x >= (w0 + w1);
+
+      if (inZone0) {
+        // [Stage 1] Intake: 원시 데이터 난기류 시뮬레이션
+        p.vx = p.baseSpeed + Math.sin(p.ph)*0.3;
+        p.vy += (Math.random()-0.5)*0.3;
+        
+        // 안테나 엔진에서 걸러지는 파티클 소멸 로직
+        if (p.fate === 'drop_intake' && p.x > w0 * 0.7) {
+          p.a -= 0.03;
+          p.vx *= 0.9;
+          if (p.a <= 0) initParticle(p, p.fate);
+        }
+      } else if (inZone1) {
+        // [Stage 2] Filter: 보라매/마린즈 논리 검증 진입 시뮬레이션
+        p.vx = p.baseSpeed * 1.3;
+        
+        // 레인에 맞춰 정렬되는 모습
+        var laneIdx = Math.max(0, Math.min(LANES-1, Math.floor((p.y / h) * LANES)));
+        p.targetY = 22 + (laneIdx * (h-44)/(LANES-1));
+        p.vy += (p.targetY - p.y) * 0.03;
+        
+        // 데이터 상태에 따른 색상 변화
+        if (p.fate === 'verified') p.col = "#ff9f0a"; // 검증 대기
+        else p.col = "#ef5350"; // 논리 오류 발견
+
+        // 보라매/마린즈 합의 실패 파티클 차단 소멸 로직
+        if (p.fate === 'drop_filter' && p.x > w0 + w1 * 0.6) {
+          p.a -= 0.02;
+          p.vy += (Math.random()-0.5)*1.5; 
+          if (p.a <= 0) initParticle(p, p.fate);
+        }
+      } else if (inZone2) {
+        // [Stage 3] Verified: 무결성 검증 완료 후 최종 출력 시뮬레이션
+        p.vx = p.baseSpeed * 2.2; 
+        p.vy = Math.sin(p.ph) * 0.5; // 안정된 사인파 흐름
+        p.col = "#00ff9d"; // 무결성 보증 그린라이트
+        
+        // 최종 출력 완료 시 무한 루프를 위해 재유입
+        if (p.x > w0 + w1 + w2) {
+          initParticle(p, p.fate);
+        }
+      }
+
+      p.vy = Math.max(-2.5, Math.min(2.5, p.vy));
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Y축 경계선 튕김
+      if(p.y < 2) { p.y = 2; p.vy *= -1; }
+      if(p.y > h-2) { p.y = h-2; p.vy *= -1; }
+
+      // 현재 속한 Zone에 따른 개별 캔버스 드로잉
+      if (p.a > 0) {
+        var drawCtx, localX;
+        if (inZone0) { drawCtx = ctx0; localX = p.x; }
+        else if (inZone1) { drawCtx = ctx1; localX = p.x - w0; }
+        else { drawCtx = ctx2; localX = p.x - w0 - w1; }
+
+        // Verified 파티클 후광(Glow) 효과
+        if (inZone2) {
+          var gr = drawCtx.createRadialGradient(localX, p.y, 0, localX, p.y, p.r*3.2);
+          gr.addColorStop(0,"rgba(0,255,157,0.26)");
+          gr.addColorStop(1,"rgba(0,255,157,0)");
+          drawCtx.beginPath(); drawCtx.arc(localX, p.y, p.r*3.2, 0, Math.PI*2);
+          drawCtx.fillStyle = gr; drawCtx.fill();
+        }
+
+        // 파티클 본체
+        drawCtx.beginPath();
+        drawCtx.arc(localX, p.y, p.r, 0, Math.PI*2);
+        drawCtx.fillStyle = p.col;
+        drawCtx.globalAlpha = Math.max(0, p.a);
+        drawCtx.fill();
+        drawCtx.globalAlpha = 1;
+      }
+    });
+
+    // Verified Zone(c2) 중앙 펄스 및 레이블 유지
+    var gt = Date.now() * 0.002;
+    var cx = w2 * 0.5, cy = h * 0.5;
+    var pulse = 0.14 + Math.sin(gt*2)*0.07;
+    var g2 = ctx2.createRadialGradient(cx,cy,0,cx,cy,26);
+    g2.addColorStop(0,"rgba(0,255,157,"+(pulse*1.8)+")");
+    g2.addColorStop(0.5,"rgba(0,255,157,"+(pulse*0.35)+")");
+    g2.addColorStop(1,"rgba(0,255,157,0)");
+    ctx2.beginPath();ctx2.arc(cx,cy,26,0,Math.PI*2);ctx2.fillStyle=g2;ctx2.fill();
+    ctx2.beginPath();ctx2.arc(cx,cy,5.5,0,Math.PI*2);ctx2.fillStyle="rgba(0,255,157,0.92)";ctx2.fill();
+    ctx2.textAlign="center";ctx2.font="500 9px -apple-system,sans-serif";ctx2.fillStyle="rgba(0,255,157,0.75)";ctx2.fillText("✓ VERIFIED",cx,cy-13);
+    ctx2.font="300 8px 'SF Mono',monospace";ctx2.fillStyle="rgba(0,255,157,0.42)";ctx2.fillText("99.99%",cx,cy+18);
+
+    requestAnimationFrame(tick);
+  }
+  tick();
 }
 window.addEventListener("load",boot);
 </script>
 
-<!-- SECTIONS CSS -->
-<style>
-.sec{padding:48px 14px;max-width:800px;margin:0 auto}
-.sec-label{font-size:9px;letter-spacing:3px;color:var(--em);text-transform:uppercase;opacity:.7;margin-bottom:8px}
-.sec-title{font-size:22px;font-weight:200;color:#fff;letter-spacing:-.5px;margin-bottom:6px}
-.sec-title strong{font-weight:600}
-.sec-sub{font-size:13px;color:var(--t2);font-weight:300;line-height:1.65;margin-bottom:28px;max-width:560px}
-.divider{height:.5px;background:var(--br);margin:0 14px}
-
-/* LOGOS ENGINE — 철학 */
-.philosophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:480px){.philosophy-grid{grid-template-columns:1fr}}
-.ph-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s}
-.ph-card:hover{border-color:var(--br2)}
-.ph-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--em),transparent);opacity:0;transition:opacity .2s}
-.ph-card:hover::before{opacity:.4}
-.ph-icon{font-size:18px;margin-bottom:8px}
-.ph-name{font-size:11px;font-weight:600;letter-spacing:1px;color:var(--em);text-transform:uppercase;margin-bottom:4px}
-.ph-desc{font-size:12px;color:var(--t2);line-height:1.6;font-weight:300}
-
-/* STRIKE FORCE 5 */
-.sf-list{display:flex;flex-direction:column;gap:10px}
-.sf-item{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px;display:flex;align-items:flex-start;gap:14px;transition:border-color .2s,background .2s}
-.sf-item:hover{border-color:var(--br2);background:rgba(0,255,157,.03)}
-.sf-num{font-size:11px;font-family:'SF Mono',monospace;color:var(--em);opacity:.6;min-width:24px;padding-top:2px}
-.sf-body{}
-.sf-title{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:3px}
-.sf-meta{font-size:11px;color:var(--t2);font-weight:300;line-height:1.5}
-.sf-tag{display:inline-block;font-size:9px;letter-spacing:.8px;padding:2px 6px;border-radius:4px;margin-right:5px;margin-bottom:4px;font-weight:500}
-
-/* PATENTS */
-.pat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:480px){.pat-grid{grid-template-columns:1fr}}
-.pat-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:16px 18px;transition:border-color .2s}
-.pat-card:hover{border-color:var(--br2)}
-.pat-num{font-size:9px;letter-spacing:2px;color:var(--em);opacity:.6;text-transform:uppercase;margin-bottom:6px;font-family:'SF Mono',monospace}
-.pat-name{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:6px}
-.pat-desc{font-size:11px;color:var(--t2);line-height:1.6;font-weight:300}
-.pat-status{display:inline-flex;align-items:center;gap:4px;font-size:9px;margin-top:10px;padding:3px 8px;border-radius:20px}
-.pat-filed{background:rgba(0,255,157,.08);border:.5px solid rgba(0,255,157,.25);color:var(--em)}
-.pat-pending{background:rgba(255,159,10,.08);border:.5px solid rgba(255,159,10,.25);color:#ff9f0a}
-
-/* MAENG INFRA */
-.infra-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-@media(max-width:480px){.infra-grid{grid-template-columns:1fr}}
-.inf-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px}
-.inf-label{font-size:9px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;margin-bottom:8px}
-.inf-items{display:flex;flex-direction:column;gap:5px}
-.inf-row{display:flex;justify-content:space-between;align-items:center;font-size:11px}
-.inf-key{color:var(--t2);font-weight:300}
-.inf-val{color:var(--em);font-family:'SF Mono',monospace;font-size:10px}
-
-/* IR CTA */
-.ir-box{background:rgba(0,255,157,.04);border:.5px solid rgba(0,255,157,.18);border-radius:16px;padding:28px 24px;text-align:center;margin-top:0}
-.ir-title{font-size:18px;font-weight:200;color:#fff;margin-bottom:8px}
-.ir-title strong{font-weight:600;color:var(--em)}
-.ir-sub{font-size:12px;color:var(--t2);margin-bottom:20px;line-height:1.6}
-.ir-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.ir-btn-main{padding:10px 24px;border-radius:24px;border:.5px solid var(--em);background:rgba(0,255,157,.1);color:var(--em);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
-.ir-btn-main:hover{background:var(--em);color:#000}
-.ir-btn-sub{padding:10px 24px;border-radius:24px;border:.5px solid var(--br);background:transparent;color:var(--t2);font-size:12px;cursor:pointer;transition:all .22s;font-family:inherit;text-decoration:none}
-.ir-btn-sub:hover{border-color:var(--t2);color:var(--t1)}
-</style>
-
-<!-- ① LOGOS ENGINE 철학 섹션 -->
+<!-- (이하 HTML 섹션들은 변경 없이 원본 그대로 유지됩니다) -->
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-label">LOGOS ENGINE · CORE PHILOSOPHY</div>
@@ -379,7 +474,6 @@ window.addEventListener("load",boot);
   </div>
 </div>
 
-<!-- ② STRIKE FORCE 5 -->
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-label">STRIKE FORCE 5 · PLATFORM LINEUP</div>
@@ -429,7 +523,6 @@ window.addEventListener("load",boot);
   </div>
 </div>
 
-<!-- ③ 특허 섹션 -->
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-label">INTELLECTUAL PROPERTY · PATENT PORTFOLIO</div>
@@ -463,7 +556,6 @@ window.addEventListener("load",boot);
   </div>
 </div>
 
-<!-- ④ MAENG INFRA -->
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-label">MAENG · LOCAL INFERENCE INFRASTRUCTURE</div>
@@ -509,85 +601,19 @@ window.addEventListener("load",boot);
   </div>
 </div>
 
-<!-- ⑤ INDEPENDENT VERIFICATION SECTION -->
 <div class="divider"></div>
-<style>
-.vf-section{padding:48px 14px;max-width:800px;margin:0 auto}
-.vf-hero{text-align:center;margin-bottom:36px}
-.vf-eyebrow{font-size:9px;letter-spacing:3px;color:var(--em);text-transform:uppercase;opacity:.7;margin-bottom:10px}
-.vf-headline{font-size:22px;font-weight:200;color:#fff;letter-spacing:-.5px;margin-bottom:8px}
-.vf-headline strong{font-weight:600;color:var(--em)}
-.vf-sub{font-size:13px;color:var(--t2);font-weight:300;line-height:1.65;max-width:540px;margin:0 auto}
-
-/* 철학 연결 배너 */
-.vf-banner{background:rgba(0,255,157,.04);border:.5px solid rgba(0,255,157,.15);border-radius:12px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:flex-start;gap:12px}
-.vf-banner-icon{font-size:18px;flex-shrink:0;margin-top:1px}
-.vf-banner-text{font-size:12px;color:var(--t2);line-height:1.65;font-weight:300}
-.vf-banner-text strong{color:var(--em);font-weight:500}
-
-/* 수렴 매트릭스 */
-.vf-matrix-label{font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
-.vf-matrix{background:rgba(8,12,24,.9);border:.5px solid var(--br);border-radius:12px;overflow:hidden;margin-bottom:28px}
-.vf-matrix-head{display:grid;grid-template-columns:1fr repeat(5,36px);gap:0;border-bottom:.5px solid var(--br);padding:8px 14px}
-.vf-mh-item{font-size:8px;letter-spacing:.5px;color:var(--t3);text-align:center;font-family:'SF Mono',monospace}
-.vf-mh-item:first-child{text-align:left;font-size:10px;color:var(--t2);letter-spacing:0}
-.vf-matrix-row{display:grid;grid-template-columns:1fr repeat(5,36px);gap:0;padding:7px 14px;border-bottom:.5px solid rgba(255,255,255,.04);transition:background .15s}
-.vf-matrix-row:last-child{border-bottom:none}
-.vf-matrix-row:hover{background:rgba(0,255,157,.03)}
-.vf-row-label{font-size:11px;color:var(--t2);font-weight:300;display:flex;align-items:center;gap:6px;padding-right:8px}
-.vf-row-label::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--em);opacity:.5;flex-shrink:0}
-.vf-cell{display:flex;align-items:center;justify-content:center;font-size:13px}
-
-/* 검증 모델 카드 */
-.vf-models{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px}
-@media(max-width:480px){.vf-models{grid-template-columns:1fr}}
-.vf-model-card{background:rgba(10,15,30,.75);border:.5px solid var(--br);border-radius:12px;padding:14px 16px;transition:border-color .2s,background .2s;cursor:default}
-.vf-model-card:hover{border-color:var(--br2);background:rgba(0,255,157,.03)}
-.vf-model-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.vf-model-name{font-size:12px;font-weight:600;letter-spacing:.3px}
-.vf-model-badge{font-size:8px;letter-spacing:.8px;padding:2px 7px;border-radius:20px;font-weight:500}
-.vf-model-org{font-size:10px;color:var(--t3);font-weight:300;margin-bottom:6px;font-family:'SF Mono',monospace}
-.vf-model-method{font-size:10px;color:var(--t2);font-weight:300;line-height:1.5}
-.vf-model-method span{color:var(--em);font-weight:500}
-.vf-verified-stamp{font-size:9px;letter-spacing:1px;color:var(--em);opacity:.6;margin-top:8px;display:flex;align-items:center;gap:4px}
-.vf-verified-stamp::before{content:'✓';font-size:10px;opacity:.8}
-
-/* 핵심 판단 수렴 */
-.vf-consensus{margin-bottom:28px}
-.vf-consensus-title{font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
-.vf-consensus-items{display:flex;flex-direction:column;gap:6px}
-.vf-ci{display:flex;align-items:center;gap:10px;background:rgba(10,15,30,.6);border:.5px solid var(--br);border-radius:8px;padding:9px 12px;transition:border-color .15s}
-.vf-ci:hover{border-color:rgba(0,255,157,.2)}
-.vf-ci-score{font-size:10px;font-family:'SF Mono',monospace;color:var(--em);min-width:32px;font-weight:600}
-.vf-ci-bar-wrap{flex:1;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
-.vf-ci-bar{height:100%;background:linear-gradient(90deg,var(--em),rgba(0,255,157,.4));border-radius:2px}
-.vf-ci-label{font-size:11px;color:var(--t2);font-weight:300;min-width:160px;text-align:right}
-
-/* 메타 인사이트 */
-.vf-meta{background:rgba(0,255,157,.03);border:.5px solid rgba(0,255,157,.12);border-left:2px solid var(--em);border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:28px}
-.vf-meta-label{font-size:9px;letter-spacing:2px;color:var(--em);text-transform:uppercase;margin-bottom:6px}
-.vf-meta-text{font-size:12px;color:var(--t2);line-height:1.7;font-weight:300}
-.vf-meta-text strong{color:var(--t1);font-weight:500}
-
-/* 날짜 */
-.vf-date{text-align:center;font-size:10px;color:var(--t3);font-family:'SF Mono',monospace;letter-spacing:.5px}
-</style>
-
 <div class="vf-section">
   <div class="vf-hero">
     <div class="vf-eyebrow">INDEPENDENT CROSS-VALIDATION · 2026.05.06</div>
     <div class="vf-headline">경쟁 AI 5사가 동일한 결론에<br><strong>수렴했습니다</strong></div>
     <div class="vf-sub">우리는 LOGOS ENGINE을 출시 전, 훈련 계보와 아키텍처가 서로 다른 5개의 이종 AI 시스템에 독립적으로 검증을 의뢰했습니다. 단일 AI의 평가가 아닙니다.</div>
   </div>
-
   <div class="vf-banner">
     <div class="vf-banner-icon">⚙️</div>
     <div class="vf-banner-text">
       LOGOS ENGINE의 핵심 철학은 <strong>"어떤 AI도 혼자 결론을 내릴 수 없는 구조"</strong>입니다. 우리는 이 철학을 시스템 설계에만 적용한 것이 아니라, <strong>시스템 검증 과정 자체에도 동일하게 적용했습니다.</strong> 이것이 마린즈 엔진의 실증입니다.
     </div>
   </div>
-
-  <!-- 검증 모델 카드 -->
   <div class="vf-matrix-label">VERIFICATION SOURCES · 5 INDEPENDENT AI SYSTEMS</div>
   <div class="vf-models">
     <div class="vf-model-card">
@@ -636,8 +662,6 @@ window.addEventListener("load",boot);
       <div class="vf-verified-stamp">스크린샷 출처 확인 완료</div>
     </div>
   </div>
-
-  <!-- 수렴 항목 -->
   <div class="vf-consensus">
     <div class="vf-consensus-title">CONVERGENCE RESULTS · 5개 AI 공통 확인 항목</div>
     <div class="vf-consensus-items">
@@ -668,19 +692,15 @@ window.addEventListener("load",boot);
       </div>
     </div>
   </div>
-
-  <!-- 메타 인사이트 -->
   <div class="vf-meta">
     <div class="vf-meta-label">META INSIGHT</div>
     <div class="vf-meta-text">
       설계자는 5개의 이종 AI에 동일한 질문을 독립적으로 제출하고, 각 출처를 스크린샷으로 검증하며, 수렴 결과를 분석했습니다. 이것은 <strong>LOGOS ENGINE의 마린즈 프로토콜을 검증 과정에 직접 적용한 것</strong>입니다. 우리는 우리가 만드는 것을 우리가 먼저 실천합니다.
     </div>
   </div>
-
   <div class="vf-date">VERIFICATION DATE · 2026.05.06 · KST · Claude / GPT-5.3 / Gemini 3.1 Pro / Grok / Genspark</div>
 </div>
 
-<!-- ⑥ IR CTA -->
 <div class="divider"></div>
 <div class="sec">
   <div class="ir-box">
@@ -692,3 +712,5 @@ window.addEventListener("load",boot);
     </div>
   </div>
 </div>
+</body>
+</html>
