@@ -1,295 +1,397 @@
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#1C1C1E;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;color:rgba(255,255,255,0.85);-webkit-text-size-adjust:100%}
-.page{display:none}.page.active{display:block}
-
-/* TOPBAR */
-.tb{display:flex;align-items:center;gap:12px;padding:11px 20px;background:rgba(44,44,46,0.88);border-bottom:0.5px solid rgba(255,255,255,0.09);backdrop-filter:blur(10px);position:sticky;top:0;z-index:50}
-.bk{font-size:13px;font-weight:300;color:#007AFF;cursor:pointer;background:none;border:none;padding:0;font-family:inherit;min-height:44px;display:flex;align-items:center}
-.bk:hover{opacity:.7}
-.tbl{font-size:12px;font-weight:300;color:rgba(255,255,255,0.28);letter-spacing:.3px}
-
-/* STATUS BAR */
-.sb{display:flex;align-items:center;justify-content:center;gap:16px;padding:9px 20px;background:rgba(44,44,46,0.75);border-bottom:0.5px solid rgba(255,255,255,0.09);flex-wrap:wrap}
-.sbi{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:300;color:rgba(255,255,255,.45);letter-spacing:.3px}
-.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-
-/* HEADER */
-.hdr{text-align:center;padding:24px 20px 16px}
-.htag{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.2);font-weight:300;text-transform:uppercase;margin-bottom:8px}
-.htitle{font-size:28px;font-weight:200;color:#fff;letter-spacing:-.5px}
-.hsub{font-size:12px;font-weight:300;color:rgba(255,255,255,.28);margin-top:5px;letter-spacing:.2px}
-
-/* GNB — 6열 가로형 */
-.gnb{display:flex;align-items:stretch;gap:0;padding:0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:0.5px solid rgba(255,255,255,.09)}
-.gnb::-webkit-scrollbar{display:none}
-.gnb-item{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;cursor:pointer;transition:background .2s,border-bottom .2s;border-bottom:2px solid transparent;white-space:nowrap;position:relative;user-select:none}
-.gnb-item:hover{background:rgba(255,255,255,.04)}
-.gnb-item.active{border-bottom:2px solid var(--col)}
-.gnb-item .gi-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:12px;margin-bottom:4px;letter-spacing:.5px}
-.gnb-item .gi-label{font-size:10px;font-weight:300;color:rgba(255,255,255,.55);letter-spacing:.2px;text-align:center;line-height:1.3}
-.gnb-item.active .gi-label{color:rgba(255,255,255,.85)}
-
-/* MEGA DROPDOWN PANEL */
-.mega-panel{padding:12px 16px;display:none}
-.mega-panel.active{display:block}
-.mega-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-
-/* PLATFORM BUTTON */
-.pb{display:flex;align-items:flex-start;gap:7px;padding:12px 11px;border-radius:11px;background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);cursor:pointer;transition:transform .18s ease,background .18s,border-color .18s;backdrop-filter:blur(8px)}
-.pb:hover{transform:scale(1.016);background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16)}
-.pn{font-size:10px;font-weight:300;letter-spacing:1px;min-width:20px;padding-top:1px;flex-shrink:0}
-.pl{font-size:11px;font-weight:300;color:rgba(255,255,255,.78);line-height:1.4}
-
-/* HERO P2 */
-.hero{padding:20px 20px 14px;border-bottom:0.5px solid rgba(255,255,255,.09)}
-.h2t{font-size:19px;font-weight:200;color:#fff;letter-spacing:-.3px;margin-bottom:4px}
-.h2s{font-size:12px;font-weight:300;color:rgba(255,255,255,.32);line-height:1.5}
-
-/* SPLIT */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px}
-.panel{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.09);border-radius:14px;padding:15px 14px;backdrop-filter:blur(14px)}
-.plbl{font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.2);text-transform:uppercase;font-weight:300;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.plbl::after{content:'';flex:1;height:0.5px;background:rgba(255,255,255,.07)}
-.sbdy{font-size:12px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.75}
-.libox{border-radius:9px;padding:9px 11px;margin-bottom:7px}
-.lih{font-size:11px;font-weight:400;margin-bottom:4px;letter-spacing:.2px}
-.lib{font-size:11px;font-weight:300;color:rgba(255,255,255,.52);line-height:1.65;white-space:pre-line}
-.stpl{display:flex;flex-direction:column;gap:9px}
-.stp{display:flex;gap:10px;align-items:flex-start}
-.spl{display:flex;flex-direction:column;align-items:center}
-.snum{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:400;flex-shrink:0}
-.sline{width:1px;flex:1;min-height:13px;margin-top:2px}
-.stpc{padding-top:2px;flex:1}
-.stag{font-size:10px;letter-spacing:1.5px;font-weight:300;text-transform:uppercase;margin-bottom:3px}
-.stxt{font-size:11px;font-weight:300;color:rgba(255,255,255,.68);line-height:1.6}
-.sbadge{display:inline-block;margin-top:4px;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:300;letter-spacing:.3px}
-
-/* BUTTONS */
-.abtn{margin:4px 20px 0;border-radius:12px;padding:14px;font-size:14px;font-weight:300;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;width:calc(100% - 40px);font-family:inherit;letter-spacing:.3px;transition:background .2s;min-height:50px}
-.nhm{margin:10px 20px 0;border-radius:12px;padding:14px;font-size:14px;font-weight:300;background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.11);color:rgba(255,255,255,.48);display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit;width:calc(100% - 40px);transition:background .2s;min-height:50px}
-.nhm:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75)}
-
-/* P3 */
-.mets{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px}
-.mc{border-radius:14px;padding:15px 14px;backdrop-filter:blur(12px)}
-.mcl{font-size:10px;font-weight:300;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
-.mcv{font-size:24px;font-weight:200;letter-spacing:-.5px;line-height:1}
-.mcs{font-size:11px;font-weight:300;margin-top:4px;line-height:1.4}
-.slbl{font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,.18);text-transform:uppercase;font-weight:300;padding:0 20px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.slbl::after{content:'';flex:1;height:0.5px;background:rgba(255,255,255,.07)}
-.term{margin:0 20px 12px;background:#070707;border:0.5px solid rgba(57,255,20,.2);border-radius:12px;padding:13px;overflow-x:auto}
-.tbar{display:flex;align-items:center;gap:6px;margin-bottom:10px;padding-bottom:8px;border-bottom:0.5px solid rgba(255,255,255,.07)}
-.tdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.tnm{font-size:11px;font-weight:300;color:rgba(255,255,255,.16);letter-spacing:1px;margin-left:4px}
-.ll{display:block;white-space:pre-wrap;word-break:break-all;overflow:hidden;max-height:0;opacity:0;transition:max-height .4s ease,opacity .35s ease;font-family:'SF Mono','Menlo',monospace;font-size:11px;font-weight:300;line-height:2}
-.ll.show{max-height:100px;opacity:1}
-.rbox{margin:0 20px 12px;border-radius:14px;padding:17px 15px;backdrop-filter:blur(12px);background:rgba(57,255,20,.04);border:0.5px solid rgba(57,255,20,.28);position:relative;overflow:hidden;opacity:0;transition:opacity .6s ease}
-.rbox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:rgba(57,255,20,.42)}
-.rtag{font-size:9px;letter-spacing:2px;color:rgba(57,255,20,.58);text-transform:uppercase;font-weight:300;margin-bottom:8px}
-.rtxt{font-size:12px;font-weight:300;color:rgba(255,255,255,.78);line-height:1.8}
-.rtxt em{color:#39FF14;font-style:normal;font-weight:400}
-
-/* FLOATING BUTTON */
-.fab{position:fixed;bottom:40px;right:40px;z-index:9999;padding:13px 20px;border-radius:50px;border:1px solid #39FF14;background:rgba(20,20,20,0.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#39FF14;font-size:12px;font-weight:400;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;letter-spacing:.3px;cursor:pointer;white-space:nowrap;text-decoration:none;display:flex;align-items:center;gap:6px;box-shadow:0 0 18px rgba(57,255,20,.18),0 4px 24px rgba(0,0,0,.5);transition:background .28s,color .28s,box-shadow .28s,transform .2s}
-.fab:hover{background:#39FF14;color:#000;box-shadow:0 0 32px rgba(57,255,20,.55);transform:translateY(-2px)}
-
-/* ═══════ MOBILE ═══════ */
-@media (max-width:768px){
-  .hdr{padding:18px 14px 12px}
-  .htitle{font-size:22px}
-  .hsub{font-size:13px}
-  .sb{gap:10px;padding:8px 12px}
-  .gnb{padding:0 10px;gap:0}
-  .gnb-item{padding:10px 5px;min-width:52px}
-  .gnb-item .gi-badge{font-size:9px;padding:2px 6px}
-  .gnb-item .gi-label{font-size:9px}
-  .mega-panel{padding:10px 12px}
-  .mega-grid{grid-template-columns:1fr;gap:6px}
-  .pb{padding:14px 13px;gap:10px;border-radius:11px}
-  .pn{font-size:12px;min-width:24px}
-  .pl{font-size:14px;line-height:1.45}
-  .tb{padding:10px 14px}
-  .bk{font-size:14px}
-  .tbl{font-size:11px}
-  .hero{padding:16px 14px 12px}
-  .h2t{font-size:17px}
-  .h2s{font-size:13px}
-  .split{grid-template-columns:1fr;gap:10px;padding:10px 12px}
-  .panel{padding:14px 13px}
-  .sbdy{font-size:13px;line-height:1.7}
-  .lih{font-size:12px}
-  .lib{font-size:12px}
-  .libox{padding:10px 12px}
-  .stxt{font-size:12px}
-  .snum{width:28px;height:28px}
-  .abtn{font-size:14px;padding:15px;margin:4px 12px 0;width:calc(100% - 24px);min-height:52px}
-  .nhm{font-size:14px;padding:15px;margin:10px 12px 0;width:calc(100% - 24px);min-height:52px}
-  .mets{grid-template-columns:1fr;gap:8px;padding:10px 12px}
-  .mc{padding:14px 13px}
-  .mcv{font-size:28px}
-  .slbl{padding:0 12px}
-  .term{margin:0 12px 10px;padding:12px}
-  .ll{font-size:11px;word-break:break-all}
-  .rbox{margin:0 12px 10px;padding:15px 13px}
-  .rtxt{font-size:13px;line-height:1.75}
-  .fab{bottom:18px;right:14px;padding:10px 14px;font-size:11px;border-radius:40px;max-width:calc(100vw - 28px);white-space:normal;text-align:center;line-height:1.3;justify-content:center}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --em:#00ff9d;--em2:rgba(0,255,157,0.15);--em3:rgba(0,255,157,0.06);
+  --bg:#050810;--bg2:#0a0f1e;--bg3:#0d1528;
+  --t1:rgba(255,255,255,0.92);--t2:rgba(255,255,255,0.55);--t3:rgba(255,255,255,0.25);
+  --br:rgba(255,255,255,0.08);--br2:rgba(0,255,157,0.22);
 }
-@media (max-width:400px){
-  .htitle{font-size:20px}
-  .pl{font-size:13px}
-  .gnb-item .gi-label{display:none}
-  .gnb-item{min-width:44px}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;color:var(--t1);overflow-x:hidden;min-height:100vh}
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(5,8,16,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--br)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px}
+.logo{font-size:15px;font-weight:600;letter-spacing:2px;color:var(--em);font-family:'SF Pro Display',sans-serif}
+.logo span{color:var(--t2);font-weight:300;font-size:12px;margin-left:6px;letter-spacing:1px}
+.nav-menu{display:flex;align-items:center;gap:2px;position:relative}
+.nav-item{position:relative}
+.nav-btn{background:none;border:none;color:var(--t2);font-size:12px;font-weight:400;padding:8px 12px;cursor:pointer;border-radius:6px;transition:color .2s,background .2s;font-family:inherit;letter-spacing:.5px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.nav-btn:hover{color:var(--t1);background:rgba(255,255,255,0.05)}
+.nav-btn.active{color:var(--em)}
+.nav-btn .cat-badge{font-size:10px;font-weight:600;color:var(--em);background:var(--em3);border:0.5px solid var(--br2);padding:1px 5px;border-radius:4px}
+.nav-about{color:var(--t2);font-size:12px;padding:7px 14px;border:0.5px solid var(--br);border-radius:20px;cursor:pointer;background:none;font-family:inherit;transition:all .2s;text-decoration:none;display:flex;align-items:center}
+.nav-about:hover{border-color:var(--em);color:var(--em)}
+/* DROPDOWN */
+.dropdown{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(-4px);min-width:260px;background:rgba(10,15,30,0.96);border:0.5px solid var(--br2);border-radius:12px;padding:12px;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;backdrop-filter:blur(24px);z-index:200}
+.nav-item:hover .dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.dd-header{font-size:9px;letter-spacing:2px;color:var(--em);text-transform:uppercase;font-weight:500;padding:4px 8px 8px;border-bottom:0.5px solid var(--br);margin-bottom:8px}
+.dd-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:7px;cursor:pointer;transition:background .15s}
+.dd-item:hover{background:rgba(0,255,157,0.07)}
+.dd-num{font-size:10px;color:var(--em);font-weight:500;min-width:20px;font-family:'SF Mono',monospace}
+.dd-label{font-size:12px;color:var(--t2);font-weight:300}
+.dd-item:hover .dd-label{color:var(--t1)}
+/* HERO */
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px 20px;min-height:calc(100vh - 52px);position:relative;overflow:hidden}
+.hero-eyebrow{font-size:10px;letter-spacing:3px;color:var(--em);text-transform:uppercase;font-weight:400;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:0.5px;background:var(--em);opacity:.5}
+.hero-title{font-size:clamp(28px,4vw,48px);font-weight:200;color:var(--t1);letter-spacing:-1px;text-align:center;line-height:1.15;margin-bottom:8px;max-width:700px}
+.hero-title strong{font-weight:500;color:#fff}
+.hero-sub{font-size:13px;color:var(--t2);font-weight:300;text-align:center;max-width:480px;line-height:1.7;margin-bottom:36px}
+/* PROCESS VISUALIZER */
+.viz-wrap{width:100%;max-width:780px;background:rgba(10,15,30,0.7);border:0.5px solid var(--br);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+.viz-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.viz-title{font-size:10px;letter-spacing:2px;color:var(--t3);text-transform:uppercase}
+.viz-stages{display:flex;align-items:center;gap:6px}
+.stage-tag{font-size:10px;padding:3px 8px;border-radius:4px;font-weight:400;letter-spacing:.5px;cursor:pointer;transition:all .2s;border:0.5px solid transparent}
+.stage-tag.s-ant{color:#64b5f6;border-color:rgba(100,181,246,.3);background:rgba(100,181,246,.08)}
+.stage-tag.s-bor{color:#ff9f0a;border-color:rgba(255,159,10,.3);background:rgba(255,159,10,.08)}
+.stage-tag.s-mar{color:var(--em);border-color:var(--br2);background:var(--em3)}
+.stage-tag.active{transform:scale(1.05)}
+.canvas-wrap{position:relative;width:100%;height:220px}
+canvas#viz{position:absolute;top:0;left:0;width:100%;height:100%}
+.viz-stat{position:absolute;right:12px;top:50%;transform:translateY(-50%);text-align:right}
+.stat-val{font-size:28px;font-weight:200;color:var(--em);font-family:'SF Mono',monospace;line-height:1}
+.stat-label{font-size:10px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+.viz-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:8px}
+.stage-desc{font-size:11px;color:var(--t2);font-weight:300;line-height:1.5;max-width:420px}
+.stage-desc strong{color:var(--t1);font-weight:500}
+.verified-badge{display:flex;align-items:center;gap:6px;opacity:0;transition:opacity .5s}
+.verified-badge.show{opacity:1}
+.vb-dot{width:8px;height:8px;border-radius:50%;background:var(--em);box-shadow:0 0 8px rgba(0,255,157,.6)}
+.vb-text{font-size:11px;color:var(--em);letter-spacing:.5px}
+/* PROCESS STEPS */
+.process-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:780px;margin-top:14px}
+.proc-card{background:var(--bg3);border:0.5px solid var(--br);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.proc-card:hover{border-color:rgba(255,255,255,0.15)}
+.proc-card.active-card{border-color:var(--br2)}
+.proc-num{font-size:10px;font-family:'SF Mono',monospace;color:var(--t3);letter-spacing:1px;margin-bottom:6px}
+.proc-name{font-size:13px;font-weight:500;margin-bottom:3px}
+.proc-sub{font-size:11px;color:var(--t2);font-weight:300;line-height:1.4}
+.proc-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(90deg,var(--em),rgba(0,255,157,.3));transition:width .6s ease}
+.proc-pct{position:absolute;top:14px;right:14px;font-size:12px;font-family:'SF Mono',monospace;color:var(--t3)}
+/* SHIELD */
+canvas#shield{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.4}
+/* FOOTER */
+.hero-footer{margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.hf-tag{font-size:10px;color:var(--t3);letter-spacing:.5px;display:flex;align-items:center;gap:5px}
+.hf-dot{width:5px;height:5px;border-radius:50%;background:var(--em);opacity:.6}
+.cta-btn{padding:10px 22px;border-radius:24px;border:0.5px solid var(--em);background:rgba(0,255,157,.08);color:var(--em);font-size:12px;font-weight:400;cursor:pointer;transition:all .22s;font-family:inherit;letter-spacing:.3px;text-decoration:none}
+.cta-btn:hover{background:var(--em);color:#000}
+@media(max-width:600px){
+  .nav-inner{padding:0 16px}
+  .nav-btn .cat-badge{display:none}
+  .process-row{grid-template-columns:1fr;gap:8px}
+  .hero{padding:28px 14px 20px;min-height:auto}
+  .dropdown{min-width:220px}
 }
 </style>
 
-<a class="fab" href="https://gamma.app/docs/AI-GSTACK--pvbseplsom51py6" target="_blank" rel="noopener noreferrer">AIGSTACK 공식 IR 및 기업 비전 보기 ↗</a>
-<div id="root"></div>
+<h2 class="sr-only">AIGSTACK — AI 무결성 인프라 플랫폼 메인 랜딩 페이지. LOGOS ENGINE의 데이터 검증 프로세스(ANTENNA → BORAMAE → MARINES)를 동적으로 시각화합니다.</h2>
+
+<!-- SHIELD CANVAS (background) -->
+<canvas id="shield"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AIGSTACK <span>INTEGRITY INFRASTRUCTURE</span></div>
+    <div class="nav-menu">
+      <!-- X -->
+      <div class="nav-item">
+        <button class="nav-btn active"><span class="cat-badge">X</span> XAI</button>
+        <div class="dropdown">
+          <div class="dd-header">X · XAI 우선 선별과제</div>
+          <div class="dd-item"><span class="dd-num">01</span><span class="dd-label">AI Data Integrity Verification Center</span></div>
+          <div class="dd-item"><span class="dd-num">02</span><span class="dd-label">On-Premise LLM Architecture</span></div>
+          <div class="dd-item"><span class="dd-num">03</span><span class="dd-label">Global AI Regulatory Diagnosis</span></div>
+          <div class="dd-item"><span class="dd-num">04</span><span class="dd-label">Deepfake & Disinformation Radar</span></div>
+          <div class="dd-item"><span class="dd-num">05</span><span class="dd-label">R&D Patent Autonomous Reasoning</span></div>
+        </div>
+      </div>
+      <!-- A -->
+      <div class="nav-item">
+        <button class="nav-btn"><span class="cat-badge" style="color:#007AFF;background:rgba(0,122,255,0.1);border-color:rgba(0,122,255,0.3)">A</span> Infra</button>
+        <div class="dropdown">
+          <div class="dd-header">A · AI Infrastructure</div>
+          <div class="dd-item"><span class="dd-num" style="color:#007AFF">06</span><span class="dd-label">Semiconductor Infra Optimization</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#007AFF">07</span><span class="dd-label">On-Premise / Edge AI Environment</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#007AFF">08</span><span class="dd-label">Hierarchical Compute Allocation</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#007AFF">09</span><span class="dd-label">Classified Data Air-Gap Network</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#007AFF">10</span><span class="dd-label">AI/SaaS Local-First Migration</span></div>
+        </div>
+      </div>
+      <!-- B -->
+      <div class="nav-item">
+        <button class="nav-btn"><span class="cat-badge" style="color:#30D158;background:rgba(48,209,88,0.1);border-color:rgba(48,209,88,0.3)">B</span> Integrity</button>
+        <div class="dropdown">
+          <div class="dd-header">B · Integrity Verification</div>
+          <div class="dd-item"><span class="dd-num" style="color:#30D158">11</span><span class="dd-label">Healthcare Data Integrity Dam</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#30D158">12</span><span class="dd-label">Multi-LLM Cross-Critique Simulator</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#30D158">13</span><span class="dd-label">Data Source Cross-Validation Tracker</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#30D158">14</span><span class="dd-label">AI Voucher Feasibility Verification</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#30D158">15</span><span class="dd-label">Physical Resource Integrity Monitor</span></div>
+        </div>
+      </div>
+      <!-- C -->
+      <div class="nav-item">
+        <button class="nav-btn"><span class="cat-badge" style="color:#FF9F0A;background:rgba(255,159,10,0.1);border-color:rgba(255,159,10,0.3)">C</span> Regulation</button>
+        <div class="dropdown">
+          <div class="dd-header">C · Global Compliance</div>
+          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">16</span><span class="dd-label">Data Sovereignty Protection Shield</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">17</span><span class="dd-label">EU AI Act Compliance Engine</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">18</span><span class="dd-label">Adversarial Prompt Injection Block</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">19</span><span class="dd-label">National Security Standard Simulator</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#FF9F0A">20</span><span class="dd-label">Data Anonymization Pipeline</span></div>
+        </div>
+      </div>
+      <!-- D -->
+      <div class="nav-item">
+        <button class="nav-btn"><span class="cat-badge" style="color:#BF5AF2;background:rgba(191,90,242,0.1);border-color:rgba(191,90,242,0.3)">D</span> Business</button>
+        <div class="dropdown">
+          <div class="dd-header">D · Intelligent Business</div>
+          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">21</span><span class="dd-label">KIBO Evaluation Reverse Engine</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">22</span><span class="dd-label">Deep-Tech R&D Targeting Engine</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">23</span><span class="dd-label">B2B AI Adoption ROI Validator</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">24</span><span class="dd-label">Smart Factory Integrity Monitor</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#BF5AF2">25</span><span class="dd-label">Autonomous Partner Matching Engine</span></div>
+        </div>
+      </div>
+      <!-- E -->
+      <div class="nav-item">
+        <button class="nav-btn"><span class="cat-badge" style="color:#64D2FF;background:rgba(100,210,255,0.1);border-color:rgba(100,210,255,0.3)">E</span> Dev</button>
+        <div class="dropdown">
+          <div class="dd-header">E · System Developer Standards</div>
+          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">26</span><span class="dd-label">Local Dev Standard Environment</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">27</span><span class="dd-label">CI/CD Pipeline Integrity Guard</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">28</span><span class="dd-label">Open Source Vulnerability Filter</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">29</span><span class="dd-label">API Spec Automated Testing</span></div>
+          <div class="dd-item"><span class="dd-num" style="color:#64D2FF">30</span><span class="dd-label">Container Security Standardization</span></div>
+        </div>
+      </div>
+      <a class="nav-about" href="mailto:ceo@aigstack.kr">Contact ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">LOGOS ENGINE · v1.0</div>
+  <h1 class="hero-title"><strong>AI Integrity</strong><br>Infrastructure Platform</h1>
+  <p class="hero-sub">Global Tier-1 Clusters. Decentralized Integrity Nodes.<br>Every data point verified before it becomes truth.</p>
+
+  <!-- VISUALIZER -->
+  <div class="viz-wrap">
+    <div class="viz-top">
+      <span class="viz-title">LOGOS ENGINE · LIVE VERIFICATION STREAM</span>
+      <div class="viz-stages">
+        <span class="stage-tag s-ant" id="tag-ant" onclick="setStage(0)">ANTENNA</span>
+        <span style="color:rgba(255,255,255,.2);font-size:10px">›</span>
+        <span class="stage-tag s-bor" id="tag-bor" onclick="setStage(1)">BORAMAE</span>
+        <span style="color:rgba(255,255,255,.2);font-size:10px">›</span>
+        <span class="stage-tag s-mar active" id="tag-mar" onclick="setStage(2)">MARINES</span>
+      </div>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="viz"></canvas>
+      <div class="viz-stat">
+        <div class="stat-val" id="stat-val">20%</div>
+        <div class="stat-label" id="stat-lbl">Verified</div>
+      </div>
+    </div>
+    <div class="viz-bottom">
+      <p class="stage-desc" id="stage-desc">
+        <strong>MARINES Protocol</strong> — 3 independent virtual agents perform mutual fact-checking. Only the top 20% of data particles survive final cross-validation and emerge as <strong>100% Verified Truth</strong>.
+      </p>
+      <div class="verified-badge" id="v-badge">
+        <div class="vb-dot"></div>
+        <span class="vb-text">100% Verified Truth</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS CARDS -->
+  <div class="process-row">
+    <div class="proc-card" id="pc0" onclick="setStage(0)">
+      <div class="proc-num">STEP 01</div>
+      <div class="proc-name" style="color:#64b5f6">ANTENNA</div>
+      <div class="proc-sub">Adaptive data source validation. All raw signals ingested from Decentralized Integrity Nodes.</div>
+      <div class="proc-pct" style="color:#64b5f6">100%</div>
+      <div class="proc-bar" style="width:100%;background:linear-gradient(90deg,#64b5f6,rgba(100,181,246,.2))"></div>
+    </div>
+    <div class="proc-card" id="pc1" onclick="setStage(1)">
+      <div class="proc-num">STEP 02</div>
+      <div class="proc-name" style="color:#ff9f0a">BORAMAE</div>
+      <div class="proc-sub">Hierarchical multi-node logic filtering. Noise eliminated. Data volume reduced by half.</div>
+      <div class="proc-pct" style="color:#ff9f0a">50%</div>
+      <div class="proc-bar" style="width:50%;background:linear-gradient(90deg,#ff9f0a,rgba(255,159,10,.2))"></div>
+    </div>
+    <div class="proc-card active-card" id="pc2" onclick="setStage(2)">
+      <div class="proc-num">STEP 03</div>
+      <div class="proc-name" style="color:#00ff9d">MARINES</div>
+      <div class="proc-sub">Triple independent LLM cross-critique. Only the top 20% of verified particles are extracted.</div>
+      <div class="proc-pct" style="color:#00ff9d">20%</div>
+      <div class="proc-bar" style="width:20%"></div>
+    </div>
+  </div>
+
+  <div class="hero-footer">
+    <span class="hf-tag"><div class="hf-dot"></div>Local First · Zero External Packet Leakage</span>
+    <span class="hf-tag"><div class="hf-dot"></div>Global Tier-1 Clusters Connected</span>
+    <span class="hf-tag"><div class="hf-dot"></div>Air-Gap Hardware Isolation</span>
+    <a class="cta-btn" href="mailto:ceo@aigstack.kr">Request IR Briefing ↗</a>
+  </div>
+</div>
 
 <script>
-var platformsData=[
-  {id:1,category:"X",title:"01. AI 데이터 무결성 자율 검증 센터",subtitle:"오염 데이터 선제 필터링 및 원시 데이터 정화",problem:"오염된 학습 데이터 주입 시 AI 모델 전체가 환각(Hallucination)에 감염됨",solution:"로컬 워크스테이션(MAENG) 격리 후 LOGOS 안테나 엔진 가동으로 신뢰도 99% 미만 데이터 폐기",stats:{passRate:"99.99%",blocked:"32,105건"}},
-  {id:2,category:"X",title:"02. 폐쇄망(On-Premise) 특화 LLM 구축 솔루션",subtitle:"기업/공공 기밀 완벽 보호 독립형 AI",problem:"퍼블릭 API 사용 시 기업 핵심 기밀 및 개인정보 외부 유출 리스크 100%",solution:"물리적 에어갭(Air-gap) 환경 하드웨어 구축 및 당사 독립형 LLM 이식",stats:{passRate:"100.00%",blocked:"14,500건"}},
-  {id:3,category:"X",title:"03. 글로벌 AI 서비스 규제 자동 진단기",subtitle:"GDPR 및 EU AI Act 컴플라이언스 즉각 대응",problem:"국가별 상이한 AI 법망 미준수 시 막대한 과징금 및 B2B 수출 차단",solution:"보라매 프로토콜의 다중 노드 분석을 통해 규제 위반 논리 모순 탐지 및 차단",stats:{passRate:"99.98%",blocked:"8,920건"}},
-  {id:4,category:"X",title:"04. 실시간 가짜뉴스 및 딥페이크 탐지 레이더",subtitle:"다중 독립 LLM 상호 팩트 체크 및 조작 판별",problem:"단일 알고리즘으로는 초정밀 딥페이크 및 생성형 가짜뉴스의 확산을 막을 수 없음",solution:"마린즈(Marines) 엔진의 3개 독립 가상 인격 상호 비판을 통한 팩트 교차 검증",stats:{passRate:"99.97%",blocked:"105,400건"}},
-  {id:5,category:"X",title:"05. 초격차 R&D 특허/기술 동향 자율 추론기",subtitle:"K-문샷 정부 과제 타겟팅 매칭 시스템",problem:"방대한 특허 및 논문 데이터 수동 분석의 한계와 과제 매칭 인적 오류",solution:"광주 동보바이오 서버실 물리망 연동, 기업 기술력과 R&D 공고 간의 무결성 팩트 매칭",stats:{passRate:"99.99%",blocked:"4,120건"}},
-  {id:6,category:"A",title:"06. AI 반도체 인프라 최적화",subtitle:"초거대 AI 연산 병목 해소",problem:"외부 연산 지연 및 트래픽 폭증",solution:"로컬 워크스테이션(MAENG) 폐쇄망 격리 및 자원 분배 최적화",stats:{passRate:"99.98%",blocked:"14,205건"}},
-  {id:7,category:"A",title:"07. 온프레미스/엣지 AI 환경 구축",subtitle:"기업 내부망 완벽 독립",problem:"외부 통신망 단절 시 시스템 마비",solution:"독립형 엣지 노드 구축 및 물리망 연동",stats:{passRate:"99.99%",blocked:"8,330건"}},
-  {id:8,category:"A",title:"08. 계층적 연산 자원 최적화",subtitle:"유휴 자원 100% 활용",problem:"단일 스레드 과부하 및 연산 낭비",solution:"보라매 프로토콜 적용으로 연산 계층 분배",stats:{passRate:"99.95%",blocked:"11,200건"}},
-  {id:9,category:"A",title:"09. 국방/공공 기밀 데이터 폐쇄망",subtitle:"1급 기밀 데이터 무결성 보호",problem:"망 혼용 시 적대적 해킹 노출",solution:"MAENG 오프라인 하드웨어 격리",stats:{passRate:"100.00%",blocked:"25,102건"}},
-  {id:10,category:"A",title:"10. AI/SaaS 기업 인프라 전환",subtitle:"로컬 퍼스트 마이그레이션",problem:"클라우드 구독료 폭탄",solution:"GSTACK 기반 로컬 서버 최적화 설계",stats:{passRate:"99.96%",blocked:"9,800건"}},
-  {id:11,category:"B",title:"11. AI 헬스케어 무결성 데이터 댐",subtitle:"의료 데이터 오류 원천 차단",problem:"환자 민감 정보 유출 및 AI 오진",solution:"LOGOS 3대 엔진 통한 임상 팩트 상호 비판",stats:{passRate:"99.99%",blocked:"8,402건"}},
-  {id:12,category:"B",title:"12. 다중 LLM 상호 비판 시뮬레이터",subtitle:"가상 인격체 충돌 테스트",problem:"단일 AI 모델 확증 편향",solution:"마린즈 기반 3개 LLM 물리적 검증",stats:{passRate:"99.98%",blocked:"15,300건"}},
-  {id:13,category:"B",title:"13. 데이터 소스 교차 검증 추적",subtitle:"오염 데이터 가변 필터링",problem:"맹독성 오염 데이터 융합 위험",solution:"안테나 엔진 가동하여 불가 소스 즉각 폐기",stats:{passRate:"99.97%",blocked:"42,100건"}},
-  {id:14,category:"B",title:"14. AI 바우처 실현가능성 검증",subtitle:"국가 사업 실패 확률 0%",problem:"실현 불가능한 모델 기획",solution:"구현 가능성 99% 미만 선제 컷오프",stats:{passRate:"99.99%",blocked:"1,205건"}},
-  {id:15,category:"B",title:"15. 물리 자원 무결성 관제",subtitle:"하드웨어 이상 징후 모니터링",problem:"서버 과부하 다운타임",solution:"서버실 환경 데이터 실시간 검증",stats:{passRate:"99.99%",blocked:"340건"}},
-  {id:16,category:"C",title:"16. 데이터 주권 보호 쉴드",subtitle:"초거대 기업으로부터의 독립",problem:"외부 API 전송 중 지식재산 탈취",solution:"Local First 오프라인 연산 패킷 0% 유지",stats:{passRate:"100.00%",blocked:"89,000건"}},
-  {id:17,category:"C",title:"17. EU AI Act 컴플라이언스",subtitle:"고위험 AI 의무 규정 패스",problem:"유럽 투명성 미달 시 수출 금지",solution:"엔진 추적 로그 법적 증빙 변환",stats:{passRate:"99.98%",blocked:"1,550건"}},
-  {id:18,category:"C",title:"18. 악성 프롬프트 인젝션 차단",subtitle:"AI 탈옥 해킹 사전 격리",problem:"악의적 입력으로 권한 탈취",solution:"적응형 필터링 논리 모순 즉시 폐기",stats:{passRate:"99.99%",blocked:"5,420건"}},
-  {id:19,category:"C",title:"19. K-보안(KISA) 표준 시뮬레이터",subtitle:"공공망 진입 보안 자동화",problem:"망분리 미준수 시 납품 불가",solution:"당사 인프라 내 모의 해킹 테스트",stats:{passRate:"99.97%",blocked:"2,110건"}},
-  {id:20,category:"C",title:"20. 데이터 비식별화 무결성 파이프라인",subtitle:"개인정보보호법 완벽 준수",problem:"가명 처리 오류 시 개인정보 노출",solution:"로컬 환경에서 원시 데이터 난수화 및 폐쇄 검증",stats:{passRate:"99.99%",blocked:"3,300건"}},
-  {id:21,category:"D",title:"21. KIBO 심사 역산 엔진",subtitle:"기술보증기금 지표 역엔지니어링",problem:"사업성 증빙 부족 데스밸리 실패",solution:"GSTACK 프레임워크 심사역 선제 방어",stats:{passRate:"99.99%",blocked:"1,120건"}},
-  {id:22,category:"D",title:"22. 초격차 R&D 딥테크 타겟팅",subtitle:"기술 과제 선별 엔진",problem:"API 래퍼 기술로 심사 탈락",solution:"3대 특허 레퍼런스 기술 증명",stats:{passRate:"99.95%",blocked:"850건"}},
-  {id:23,category:"D",title:"23. B2B AI 도입 ROI 검증",subtitle:"투자 대비 효용 자동 계산",problem:"무분별한 도입 운영비 폭증",solution:"MAENG 도입 시 유지비용 시뮬레이션",stats:{passRate:"99.98%",blocked:"4,200건"}},
-  {id:24,category:"D",title:"24. 스마트팩토리 무결성 관제",subtitle:"제조 자동화 결함 예방",problem:"센서 환각 시 제조 라인 오작동",solution:"비정상 센서 데이터 가변 필터링",stats:{passRate:"99.97%",blocked:"18,400건"}},
-  {id:25,category:"D",title:"25. 자율형 비즈니스 파트너 매칭",subtitle:"기술 시너지 검증 엔진",problem:"이해관계 불일치로 인한 협업 붕괴",solution:"각 기업 데이터 무결성 상호 검증 후 파트너십 점수 산출",stats:{passRate:"99.96%",blocked:"990건"}},
-  {id:26,category:"E",title:"26. AI 개발자 로컬 표준 환경",subtitle:"소스코드 유출 차단",problem:"퍼블릭 IDE 사용 시 소스 유출",solution:"오프라인 폐쇄형 개발망 제공",stats:{passRate:"99.99%",blocked:"1,402건"}},
-  {id:27,category:"E",title:"27. CI/CD 파이프라인 무결성",subtitle:"배포 악성 코드 차단",problem:"오염 패키지 주입 시 치명상",solution:"소스코드 가변 필터링 의존성 차단",stats:{passRate:"99.98%",blocked:"8,921건"}},
-  {id:28,category:"E",title:"28. 오픈소스 취약점 필터링",subtitle:"글로벌 보안 규격 라이브러리",problem:"외부 오픈소스 무단 활용 백도어",solution:"글로벌 보안 표준 대조 무결성 확인",stats:{passRate:"99.99%",blocked:"24,105건"}},
-  {id:29,category:"E",title:"29. API 통신 규격 자동 테스트",subtitle:"시스템 API 모순 탐지",problem:"이기종 연동 시 규격 충돌",solution:"마린즈 상호 비판 API 크로스 체크",stats:{passRate:"99.98%",blocked:"5,330건"}},
-  {id:30,category:"E",title:"30. 컨테이너 보안 표준화",subtitle:"가상화 계층 무결성 확보",problem:"컨테이너 오염 랜섬웨어 확산",solution:"언패킹 및 무결성 99.9% 확인 후 승인",stats:{passRate:"99.99%",blocked:"3,755건"}}
-];
-
-var SECS=[
-  {id:"X",label:"XAI 우선과제",short:"X. XAI",col:"#FF453A"},
-  {id:"A",label:"AI 인프라",short:"A. 인프라",col:"#007AFF"},
-  {id:"B",label:"무결성 검증",short:"B. 무결성",col:"#30D158"},
-  {id:"C",label:"글로벌 규제",short:"C. 규제",col:"#FF9F0A"},
-  {id:"D",label:"지능형 비즈니스",short:"D. 비즈니스",col:"#BF5AF2"},
-  {id:"E",label:"시스템 개발자",short:"E. 개발자",col:"#64D2FF"}
-];
-function secCol(c){var m={X:"#FF453A",A:"#007AFF",B:"#30D158",C:"#FF9F0A",D:"#BF5AF2",E:"#64D2FF"};return m[c]||"#888";}
-
-var ST={page:"p1",platform:null,activeSec:"X"};
-
-function render(){
-  var r=document.getElementById("root");
-  if(ST.page==="p1")r.innerHTML=rP1();
-  else if(ST.page==="p2")r.innerHTML=rP2();
-  else if(ST.page==="p3")r.innerHTML=rP3();
-  if(ST.page==="p3")runLogs();
-}
-
-function rP1(){
-  var sb='<div class="sb"><div class="sbi"><div class="dot" style="background:#30D158"></div>Gemini(검증) 연결됨</div><div class="sbi"><div class="dot" style="background:#30D158"></div>Claude(디자인) 연결됨</div><div class="sbi"><div class="dot" style="background:#FF9F0A"></div>Local MAENG(대기중)</div></div>';
-  var hd='<div class="hdr"><div class="htag">AI Integrity Infrastructure</div><div class="htitle">PROJECT <em style="color:#007AFF;font-style:normal;font-weight:300">@</em></div><div class="hsub">K-문샷 문제해결 지능형 플랫폼 · 6대 섹션 · 30개 정예 플랫폼</div></div>';
-
-  // GNB
-  var gnb='<div class="gnb">';
-  SECS.forEach(function(sec){
-    var active=ST.activeSec===sec.id;
-    gnb+='<div class="gnb-item'+(active?" active":"")+'" style="--col:'+sec.col+';'+(active?'border-bottom-color:'+sec.col:'')+'" onclick="setSec(\''+sec.id+'\')">';
-    gnb+='<span class="gi-badge" style="background:'+sec.col+'22;color:'+sec.col+';border:0.5px solid '+sec.col+'44">'+sec.id+'</span>';
-    gnb+='<span class="gi-label">'+sec.label+'</span></div>';
-  });
-  gnb+='</div>';
-
-  // MEGA PANEL
-  var sec=SECS.find(function(s){return s.id===ST.activeSec;});
-  var plats=platformsData.filter(function(p){return p.category===ST.activeSec;});
-  var col=sec.col;
-  var panel='<div class="mega-panel active"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding:0 2px"><span style="font-size:11px;font-weight:400;color:'+col+'">'+sec.short+'</span><span style="font-size:11px;font-weight:300;color:rgba(255,255,255,.35)">— '+sec.label+' ('+plats.length+'개 플랫폼)</span></div>';
-  panel+='<div class="mega-grid">';
-  plats.forEach(function(p){
-    panel+='<div class="pb" style="border-color:'+col+'22;" onclick="clickP('+p.id+')">';
-    panel+='<span class="pn" style="color:'+col+'99">'+String(p.id).padStart(2,"0")+'</span>';
-    panel+='<span class="pl">'+p.title.replace(/^\d+\.\s/,"")+'</span></div>';
-  });
-  panel+='</div></div>';
-  return sb+hd+gnb+panel+'<div style="height:90px"></div>';
-}
-
-function rP2(){
-  var p=ST.platform; if(!p)return'';
-  var col=secCol(p.category);
-  var num=String(p.id).padStart(2,"0");
-  var steps=[
-    {tag:"STEP 1",txt:"KIBO/기업 검증 요청 데이터 API 수신 대기",badge:"API Standby"},
-    {tag:"STEP 2",txt:"MAENG 로컬 환경 완전 격리 및 GSTACK 개념 분석",badge:"Local Isolation"},
-    {tag:"STEP 3",txt:"로고스 엔진 3대 프로토콜(안테나→보라매→마린즈) 릴레이 타격",badge:"LOGOS Relay"},
-    {tag:"STEP 4",txt:"99.9% 무결성 확보 후 플랫폼 대시보드(3페이지) 전송",badge:"99.9% Integrity"}
-  ];
-  var tb='<div class="tb"><button class="bk" onclick="goTo(\'p1\')">‹ PROJECT @</button><span class="tbl">설계서 · 플랫폼 '+num+'</span></div>';
-  var hero='<div class="hero"><div style="font-size:10px;letter-spacing:2px;color:'+col+'BB;font-weight:300;text-transform:uppercase;margin-bottom:6px">Design Document · Platform '+num+'</div><div class="h2t"><em style="color:'+col+';font-style:normal">'+num+'.</em> '+p.title.replace(/^\d+\.\s/,"")+'</div><div class="h2s">'+p.subtitle+'</div></div>';
-  var lp='<div class="panel"><div class="plbl">문제점 및 해결 로직</div>';
-  lp+='<div style="font-size:12px;font-weight:400;color:'+col+'DD;margin-bottom:6px">섹션 1 · 현행 시스템의 치명적 한계</div>';
-  lp+='<div class="sbdy">'+p.problem+'</div>';
-  lp+='<div style="font-size:12px;font-weight:400;color:'+col+'DD;margin-bottom:6px;margin-top:12px">섹션 2 · AIGSTACK 초격차 해결 로직</div>';
-  lp+='<div class="libox" style="background:'+col+'11;border:0.5px solid '+col+'2E"><div class="lih" style="color:'+col+'E0">AIGSTACK 해결 방안</div><div class="lib">'+p.solution+'</div></div>';
-  lp+='<div class="libox" style="background:'+col+'11;border:0.5px solid '+col+'2E"><div class="lih" style="color:'+col+'E0">무결성 결론</div><div class="lib">실현 가능성 99% 미만 데이터는 선제적 폐기 및 차단.</div></div></div>';
-  var rp='<div class="panel"><div class="plbl">실행 워크플로우 · 설계도</div><div class="stpl">';
-  steps.forEach(function(s,i){
-    rp+='<div class="stp"><div class="spl"><div class="snum" style="background:'+col+'1A;border:0.5px solid '+col+'44;color:'+col+'">'+(i+1)+'</div>';
-    if(i<3)rp+='<div class="sline" style="background:'+col+'22"></div>';
-    rp+='</div><div class="stpc"><div class="stag" style="color:'+col+'77">'+s.tag+'</div><div class="stxt">'+s.txt+'</div><span class="sbadge" style="background:'+col+'1A;color:'+col+';border:0.5px solid '+col+'40">'+s.badge+'</span></div></div>';
-  });
-  rp+='</div></div>';
-  return tb+hero+'<div class="split">'+lp+rp+'</div>'+'<button class="abtn" style="background:'+col+'18;border:0.5px solid '+col+'55;color:'+col+'" onclick="goTo(\'p3\')">3페이지 결과 출력 대시보드로 이동 ↗</button><div style="height:90px"></div>';
-}
-
-function rP3(){
-  var p=ST.platform; if(!p)return'';
-  var num=String(p.id).padStart(2,"0");
-  var col=secCol(p.category);
-  var tb='<div class="tb"><button class="bk" onclick="goTo(\'p2\')">‹ 설계서</button><span class="tbl">결과 출력 · 플랫폼 '+num+'</span></div>';
-  var hero='<div class="hero"><div style="font-size:10px;letter-spacing:2px;color:rgba(57,255,20,.65);font-weight:300;text-transform:uppercase;margin-bottom:6px">Integrity Validation Dashboard · Final Output</div><div class="h2t">'+p.title.replace(/^\d+\.\s/,"")+'</div><div class="h2s">플랫폼 '+num+' · 무결성 검증 최종 가동 결과</div></div>';
-  var mets='<div class="mets"><div class="mc" style="background:rgba(57,255,20,.05);border:0.5px solid rgba(57,255,20,.28)"><div class="mcl" style="color:rgba(57,255,20,.58)">최종 검증 통과율</div><div class="mcv" style="color:#39FF14;text-shadow:0 0 10px rgba(57,255,20,.35)">'+p.stats.passRate+'</div><div class="mcs" style="color:rgba(57,255,20,.5)">LOGOS ENGINE 무결성 확보</div></div><div class="mc" style="background:rgba(255,69,58,.04);border:0.5px solid rgba(255,69,58,.22)"><div class="mcl" style="color:rgba(255,69,58,.52)">선제 차단된 오염/환각 데이터</div><div class="mcv" style="color:#FF453A">'+p.stats.blocked+'</div><div class="mcs" style="color:rgba(255,69,58,.42)">원천 차단 완료</div></div></div>';
-  var logs=[
-    '<span style="color:rgba(255,255,255,.16)">▶ </span><span style="color:#FF9F0A">[INFRA]</span><span style="color:rgba(255,255,255,.16)"> 로컬 워크스테이션(MAENG): 오프라인 폐쇄망 격리 완료. 보안 프로토콜 100% 정상 가동.</span>',
-    '<span style="color:rgba(255,255,255,.16)">▶ </span><span style="color:#007AFF">[LOGOS Step 1]</span><span style="color:rgba(255,255,255,.16)"> 안테나(Antenna) 엔진: 교차 검증 불가 소스 필터링 및 원천 차단 완료.</span>',
-    '<span style="color:rgba(255,255,255,.16)">▶ </span><span style="color:#BF5AF2">[LOGOS Step 2]</span><span style="color:rgba(255,255,255,.16)"> 보라매(Boramae) 프로토콜: 계층적 다중 분석 노드 기반 논리 오류 0건 판별.</span>',
-    '<span style="color:rgba(255,255,255,.16)">▶ </span><span style="color:#FF6B6B">[LOGOS Step 3]</span><span style="color:rgba(255,255,255,.16)"> 마린즈(Marines) 프로토콜: 3개 독립 가상 인격 상호 팩트 체크 완료. (동보바이오 서버실 물리 서버 이상 없음)</span>',
-    '<span style="color:#39FF14">✔ VALIDATION COMPLETE — 무결성 임계치 99.9% 초과 달성. 최종 출력 승인.</span>'
-  ];
-  var logH='<div class="slbl">터미널 실행 로그</div><div class="term"><div class="tbar"><div class="tdot" style="background:#FF5F57"></div><div class="tdot" style="background:#FEBC2E"></div><div class="tdot" style="background:#28C840"></div><span class="tnm">LOGOS ENGINE — TERMINAL LOG v1.0</span></div>';
-  logs.forEach(function(l,i){logH+='<span class="ll" id="ll'+i+'">'+l+'</span>';});
-  logH+='</div>';
-  var rbox='<div class="slbl">최종 출력 리포트</div><div class="rbox" id="rbox"><div class="rtag">System Final Verdict · KIBO Submission Ready</div><div class="rtxt">KIBO 심사 기준 충족. 본 결과는 당사의 GSTACK 개념 분석 프레임워크를 적용하여 구글 제미나이(Gemini 3.1 Pro) 환경에서 자체 연산 및 시뮬레이션된 팩트 데이터이며, 추후 당사 로컬망(MAENG)의 로고스 엔진으로 이관 시 <em>99.9%의 무결성을 보장하는 MVP 검증 결과임.</em></div></div>';
-  return tb+hero+mets+logH+rbox+'<button class="nhm" onclick="goTo(\'p1\')">← 처음(메인 홈)으로 돌아가기</button><div style="height:90px"></div>';
-}
-
-function runLogs(){
-  for(var i=0;i<5;i++){
-    (function(idx){setTimeout(function(){var el=document.getElementById("ll"+idx);if(el)el.classList.add("show");},100+idx*750);})(i);
+/* ─── SHIELD PARTICLES (energy field background) ─── */
+(function(){
+  var c=document.getElementById("shield");
+  var ctx=c.getContext("2d");
+  var pts=[];
+  function resize(){c.width=c.offsetWidth||window.innerWidth;c.height=Math.max(document.body.scrollHeight||800,window.innerHeight||800);}
+  resize();
+  for(var i=0;i<60;i++){
+    pts.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,a:Math.random()});
   }
-  setTimeout(function(){var rb=document.getElementById("rbox");if(rb)rb.style.opacity="1";},3900);
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>c.width)p.vx*=-1;
+      if(p.y<0||p.y>c.height)p.vy*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle="rgba(0,255,157,"+( p.a*.18)+")";ctx.fill();
+    });
+    for(var i=0;i<pts.length;i++){
+      for(var j=i+1;j<pts.length;j++){
+        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<90){
+          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle="rgba(0,255,157,"+((.06)*(1-d/90))+")";ctx.lineWidth=.5;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── LOGOS ENGINE VISUALIZER ─── */
+var stage=2;
+var particles=[];
+var animId=null;
+
+var stageData=[
+  {pct:"100%",lbl:"Raw Data Ingested",tag:"ANTENNA",desc:"<strong>ANTENNA Protocol</strong> — Adaptive signal acquisition from Global Tier-1 Clusters. All incoming data particles captured. <strong>No filtering yet — 100% raw volume</strong> in play.",badge:false},
+  {pct:"50%",lbl:"Noise Filtered",tag:"BORAMAE",desc:"<strong>BORAMAE Protocol</strong> — Hierarchical multi-node analysis. Unverifiable and low-integrity sources eliminated. Data volume reduced to <strong>50% of original signal</strong>.",badge:false},
+  {pct:"20%",lbl:"Verified",tag:"MARINES",desc:"<strong>MARINES Protocol</strong> — 3 independent virtual agents perform mutual fact-checking. Only the top 20% of data particles survive final cross-validation and emerge as <strong>100% Verified Truth</strong>.",badge:true}
+];
+
+var COLS_ANT=["#64b5f6","#ef5350","#ffa726","#ab47bc","#26c6da","#ffffff","#ff7043","#8d6e63"];
+var COL_BOR="#ff9f0a";
+var COL_MAR="#00ff9d";
+
+function initParticles(stageIdx){
+  var canvas=document.getElementById("viz");
+  var w=canvas.width,h=canvas.height;
+  particles=[];
+  var count=stageIdx===0?160:stageIdx===1?80:32;
+  for(var i=0;i<count;i++){
+    var angle=Math.random()*Math.PI*2;
+    var speed=stageIdx===0?(Math.random()*2+1):(Math.random()*.8+.2);
+    var col=stageIdx===0?COLS_ANT[Math.floor(Math.random()*COLS_ANT.length)]:stageIdx===1?COL_BOR:COL_MAR;
+    var startX=stageIdx===0?(Math.random()<.5?-10:w+10):w*(.1+Math.random()*.4);
+    var startY=stageIdx===0?(Math.random()*h):h*(.2+Math.random()*.6);
+    var targetX=stageIdx===2?(w*.72+Math.random()*20):(w*(.05+Math.random()*.7));
+    var targetY=stageIdx===2?(h*.5+(Math.random()-.5)*30):(h*(.1+Math.random()*.8));
+    if(stageIdx===1){
+      var col2=i%3===0?"#ef9a9a":i%3===1?"#fff59d":COL_BOR;
+      col=i<count*.4?col2:COL_BOR;
+    }
+    particles.push({x:startX,y:startY,tx:targetX,ty:targetY,vx:(Math.random()-.5)*speed,vy:(Math.random()-.5)*speed,col:col,r:stageIdx===2?2.5:stageIdx===1?1.8:1.5,alpha:1,t:Math.random()*60});
+  }
 }
 
-function setSec(id){ST.activeSec=id;render();}
-function clickP(id){var p=platformsData.find(function(x){return x.id===id;});if(p){ST.platform=p;ST.page="p2";render();}}
-function goTo(pg){ST.page=pg;render();}
+function drawViz(){
+  var canvas=document.getElementById("viz");
+  if(!canvas)return;
+  var ctx=canvas.getContext("2d");
+  var w=canvas.width,h=canvas.height;
+  ctx.clearRect(0,0,w,h);
 
-render();
+  if(stage===1){
+    for(var i=0;i<3;i++){
+      var lx=w*(.25+i*.2);
+      ctx.beginPath();ctx.moveTo(lx,8);ctx.lineTo(lx,h-8);
+      ctx.strokeStyle="rgba(255,159,10,0.06)";ctx.lineWidth=12;ctx.stroke();
+      ctx.beginPath();ctx.moveTo(lx,8);ctx.lineTo(lx,h-8);
+      ctx.strokeStyle="rgba(255,159,10,0.12)";ctx.lineWidth=1;ctx.setLineDash([4,6]);ctx.stroke();ctx.setLineDash([]);
+    }
+  }
+
+  if(stage===2){
+    var cx=w*.73,cy=h*.5,glow=ctx.createRadialGradient(cx,cy,0,cx,cy,40);
+    glow.addColorStop(0,"rgba(0,255,157,0.22)");glow.addColorStop(1,"rgba(0,255,157,0)");
+    ctx.beginPath();ctx.arc(cx,cy,40,0,Math.PI*2);ctx.fillStyle=glow;ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,6,0,Math.PI*2);
+    ctx.fillStyle="rgba(0,255,157,0.9)";ctx.fill();
+    ctx.font="10px 'SF Mono',monospace";ctx.fillStyle="rgba(0,255,157,0.7)";ctx.textAlign="left";
+    ctx.fillText("▶ VERIFIED TRUTH",cx+14,cy-6);
+    ctx.fillStyle="rgba(0,255,157,0.4)";ctx.font="9px 'SF Mono',monospace";
+    ctx.fillText("100% Certified · Integrity Score 99.99%",cx+14,cy+8);
+  }
+
+  particles.forEach(function(p){
+    if(p.t>0){p.t--;return;}
+    if(stage===2){
+      p.x+=(p.tx-p.x)*.06+p.vx*.2;
+      p.y+=(p.ty-p.y)*.06+p.vy*.2;
+    } else if(stage===1){
+      p.x+=(p.tx-p.x)*.04+p.vx*.3;
+      p.y+=(p.ty-p.y)*.04+p.vy*.3;
+    } else {
+      p.x+=p.vx*1.5;p.y+=p.vy*1.5;
+      if(p.x<0||p.x>w)p.vx*=-1;
+      if(p.y<0||p.y>h)p.vy*=-1;
+    }
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.col;ctx.globalAlpha=p.alpha*.9;ctx.fill();ctx.globalAlpha=1;
+  });
+
+  if(stage===0){
+    ctx.font="10px 'SF Mono',monospace";ctx.fillStyle="rgba(100,181,246,0.5)";ctx.textAlign="left";
+    ctx.fillText("↓ INCOMING RAW DATA — "+particles.length+" SIGNALS",10,14);
+  }
+
+  animId=requestAnimationFrame(drawViz);
+}
+
+function setStage(idx){
+  stage=idx;
+  var canvas=document.getElementById("viz");
+  var w=canvas.offsetWidth||600;var h=canvas.offsetHeight||220;
+  canvas.width=w;canvas.height=h;
+  if(animId)cancelAnimationFrame(animId);
+  initParticles(idx);
+  var d=stageData[idx];
+  document.getElementById("stat-val").textContent=d.pct;
+  document.getElementById("stat-lbl").textContent=d.lbl;
+  document.getElementById("stage-desc").innerHTML=d.desc;
+  var vb=document.getElementById("v-badge");
+  d.badge?vb.classList.add("show"):vb.classList.remove("show");
+  ["ant","bor","mar"].forEach(function(t,i){document.getElementById("tag-"+t).classList.toggle("active",i===idx);});
+  ["pc0","pc1","pc2"].forEach(function(id,i){document.getElementById(id).classList.toggle("active-card",i===idx);});
+  drawViz();
+}
+
+window.addEventListener("load",function(){
+  var canvas=document.getElementById("viz");
+  canvas.width=canvas.offsetWidth||600;canvas.height=canvas.offsetHeight||220;
+  setStage(2);
+  setTimeout(function(){
+    setStage(0);
+    setTimeout(function(){setStage(1);setTimeout(function(){setStage(2);},2000);},2000);
+  },400);
+});
+window.setStage=setStage;
 </script>
